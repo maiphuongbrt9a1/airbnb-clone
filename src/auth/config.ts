@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 // SignInSchema is the rules for the email/password from the before we hit the database
 
 const signInSchema = z.object({
-  email: z.email(),
+  email: z.string().email(),
   password: z.string().min(8),
 });
 
@@ -16,10 +16,10 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" as const },
-  page: {
+  pages: {
     signIn: "/login",
   },
-  provider: [
+  providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,

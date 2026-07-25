@@ -12,10 +12,10 @@ if (!prismaUrl) {
 }
 
 export default defineConfig({
-  schema: "prisma/schema.prisma",
+  schema: ".windsurf/prisma/schema.prisma",
   migrations: {
-    path: "prisma/migrations",
-    seed: "tsx prisma/seed.ts",
+    path: ".windsurf/prisma/migrations",
+    seed: ".windsurf/tsx prisma/seed.ts",
   },
   datasource: {
     url: prismaUrl,
