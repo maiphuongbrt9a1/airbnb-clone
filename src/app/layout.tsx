@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "StayScape",
   description:
     "Book curated stays with modern, professional booking experience",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
