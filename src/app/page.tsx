@@ -1,3 +1,4 @@
+import { HomeSearchBar } from "@/components/home-search-bar";
 import { SafeImage } from "@/components/safe-image";
 import { fetchDemoProperties } from "@/lib/demo-properties";
 import { format } from "date-fns";
@@ -119,6 +120,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
         <div className="mx-auto mt-7 max-w-[57.5rem] md:mt-8">
           {/* Home search bar */}
+          <HomeSearchBar />
         </div>
         <div className="mx-auto mt-6 flex max-w-[57.5rem] items-start justify-between gap-3">
           <div className="hide-scrollbar flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
