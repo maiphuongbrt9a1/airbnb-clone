@@ -68,10 +68,79 @@ export function normalizeUsCity(location: string) {
   return "United States";
 }
 
+export function buildDateRangeInclusive(start: Date, end: Date) {
+  const dates: string[] = [];
+  const cursor = new Date(start);
+  while (cursor <= end) {
+    dates.push(cursor.toISOString().slice(0, 10));
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return dates;
+}
+
+export function isRangeAvailable(
+  availableDates: string[],
+  checkIn?: string,
+  checkOut?: string,
+) {
+  if (!checkIn || !checkOut) {
+    return true;
+  }
+
+  const start = new Date(checkIn);
+  const end = new Date(checkOut);
+
+  if (
+    Number.isNaN(start.getTime()) ||
+    Number.isNaN(end.getTime()) ||
+    end < start
+  ) {
+    return true;
+  }
+
+  const requested = buildDateRangeInclusive(start, end);
+
+  if (availableDates.length === 0) {
+    return true;
+  }
+
+  const mdSet = new Set(
+    availableDates
+      .filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d))
+      .map((d) => d.slice(5)),
+  );
+  return requested.every((d) => mdSet.has(d.slice(5)));
+}
+
+export function formatDateRange(checkIn?: string, checkOut?: string) {
+  if (!checkIn || !checkOut) return "Anytime";
+  const start = new Date(checkIn);
+  const end = new Date(checkOut);
+
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+    return "Anytime";
+  }
+
+  return `${format(start, "MMM d")}-${format(end, "MMM d")}`;
+}
+
+export function groupByCity(cards: UnifiedCard[]) {
+  const grouped = new Map<string, UnifiedCard[]>();
+  for (const card of cards) {
+    const list = grouped.get(card.city) ?? [];
+    list.push(card);
+    grouped.set(card.city, list);
+  }
+
+  return Array.from(grouped.entries()).map(([city, item]) => ({ city, item }));
+}
+
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
+  const buildingListingHref = (listingId: string) => `/listing/${listingId}`;
   const hasAnyFilters = Boolean(params.category?.trim());
   const demoProperties = await fetchDemoProperties();
+  const hasLocationSearch = Boolean(params.location?.trim());
 
   const allCard: UnifiedCard[] = [
     ...demoProperties.map((property, index) => ({
@@ -90,16 +159,53 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     })),
   ];
 
+  const requestedGuests =
+    Number(params.adults ?? 0) +
+      Number(params.children ?? 0) +
+      Number(params.infants ?? 0) ||
+    Number(params.guests) ||
+    1;
+
   const unifiedCards = allCard.filter((card) => {
+    const byLocation = params.location?.trim()
+      ? card.city.toLowerCase().includes(params.location.toLowerCase())
+      : true;
+
     const byCategory = params.category
       ? card.category.toLowerCase() === params.category.toLowerCase()
       : true;
 
-    return byCategory;
+    const byGuests = card.maxGuests >= requestedGuests;
+
+    return byLocation && byCategory && byGuests;
   });
 
   const limitedCards = unifiedCards.slice(0, 20);
   const defaultGridCards = limitedCards;
+  const groupedCards = groupByCity(limitedCards);
+
+  const adults = Number(params.adults ?? 0) || 0;
+  const children = Number(params.children ?? 0) || 0;
+  const infants = Number(params.infants ?? 0) || 0;
+
+  const guestParts: string[] = [];
+  if (adults > 0) {
+    guestParts.push(`${adults} adult${adults > 1 ? "s" : ""}`);
+  }
+
+  if (children > 0) {
+    guestParts.push(`${children} child${children > 1 ? "ren" : ""}`);
+  }
+  if (infants > 0) {
+    guestParts.push(`${infants} infant${infants > 1 ? "s" : ""}`);
+  }
+
+  const locationLabel = params.location?.trim() || "Anywhere";
+  const dateLabel = formatDateRange(params.checkIn, params.checkOut);
+  const guestsLabel =
+    guestParts.length > 0
+      ? guestParts.join(", ")
+      : `${requestedGuests} guest${requestedGuests > 1 ? "s" : ""}`;
 
   return (
     <main className="mx-auto min-h-screen max-w-7xl pb-14 pt-8 px-4 md:px-8 md:pb-12 md:pt-6">
@@ -120,7 +226,15 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
         <div className="mx-auto mt-7 max-w-[57.5rem] md:mt-8">
           {/* Home search bar */}
-          <HomeSearchBar />
+          <HomeSearchBar
+            initialAdults={params.adults}
+            initialCheckIn={params.checkIn}
+            initialCheckOut={params.checkOut}
+            initialChildren={params.children}
+            initialGuests={params.guests}
+            initialInfants={params.infants}
+            initialLocation={params.location}
+          />
         </div>
         <div className="mx-auto mt-6 flex max-w-[57.5rem] items-start justify-between gap-3">
           <div className="hide-scrollbar flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
@@ -130,7 +244,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               return (
                 <Link
                   key={item.label}
-                  href={`/?category=${encodeURIComponent(item.label)}`}
+                  href={`/?category=${encodeURIComponent(item.label)}${params.location ? `&location=${encodeURIComponent(params.location)}` : ""}${params.guests ? `&guests=${encodeURIComponent(params.guests)}` : ""}${params.adults ? `&adults=${encodeURIComponent(params.adults)}` : ""}${params.children ? `&children=${encodeURIComponent(params.children)}` : ""}${params.infants ? `&infants=${encodeURIComponent(params.infants)}` : ""}${params.checkIn ? `&checkIn=${encodeURIComponent(params.checkIn)}` : ""}${params.checkOut ? `&checkOut=${encodeURIComponent(params.checkOut)}` : ""}`}
                   className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${isActive ? "border-ink-900 bg-ink-900 text-white" : "border-ink-300 text-ink-700 hover:bg-ink-100"}`}
                 >
                   <Icon className="h-4 w-4" />
@@ -151,56 +265,130 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
         <p className="mx-auto mt-3 max-w-[57.5rem] text-sm text-ink-600">
           Showing stays for{" "}
-          <span className="font-medium text-ink-900">Guests</span>
+          <span className="font-medium text-ink-900">{guestsLabel}</span>
           {" . "}
-          <span className="font-medium text-ink-900">Dates</span>
+          <span className="font-medium text-ink-900">{dateLabel}</span>
           {" . "}
-          <span className="font-medium text-ink-900">Location</span>
+          <span className="font-medium text-ink-900">{locationLabel}</span>
         </p>
       </section>
 
-      <section className="mt-10 md:mt-8 ">
-        <div className="mb-4 flex items-center gap-2">
-          <h2 className="text-2xl font-semibold tracking-tight text-ink-900">
-            Top picks across the United States
-          </h2>
-          <ChevronRight className="h-5 w-5 text-ink-700 " />
-        </div>
+      {unifiedCards.length === 0 ? (
+        <section className="mt-10 md:mt-8">
+          <p className="text-ink-600">
+            No stays match your current filter. Try adjusting destination,
+            dates, or guest count.
+          </p>
+        </section>
+      ) : (
+        <>
+          {hasLocationSearch ? (
+            <section className="mt-10 space-y-10 md:mt-8 md:space-y-9">
+              {groupedCards.map((group) => (
+                <>
+                  <div
+                    key={group.city}
+                    className="mb-4 flex items-center gap-2"
+                  >
+                    <h2 className="text-2xl font-semibold tracking-tight text-ink-900">
+                      Top stays in {group.city}
+                    </h2>
+                    <ChevronRight className="h-5 w-5 text-ink-700 " />
+                  </div>
 
-        <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-          {defaultGridCards.map((item, index) => {
-            return (
-              <Link key={item.id} className="block space-y-2" href={"#"}>
-                <div className="overflow-hidden rounded-2xl ">
-                  <SafeImage
-                    src={item.image}
-                    alt={item.title}
-                    width={420}
-                    height={280}
-                    className="h-48 w-full object-cover"
-                    priority={index < 4}
-                  />
-                </div>
-                <div className="space-y-0.5 space-x-0.5">
-                  <p className="inline-flex rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700">
-                    {item.city}
-                  </p>
-                  <p className="line-clamp-1 text-sm font-medium text-ink-900">
-                    {item.title}
-                  </p>
-                  <p className="line-clamp-1 text-xs text-ink-500 ">
-                    ${item.price} for 1 nights
-                    <span className="ml-1 inline-flex items-center gap-0.5">
-                      <Star className="h-3 w-3 fill-current text-ink-700" />
-                      {item.rating}
-                    </span>
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+                  <div
+                    key={group.city}
+                    className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 md:gap-4 lg:grid-cols-4"
+                  >
+                    {group.item.map((item, index) => {
+                      return (
+                        <Link
+                          key={item.id}
+                          className="block space-y-2"
+                          href={buildingListingHref(item.id)}
+                        >
+                          <div className="overflow-hidden rounded-2xl ">
+                            <SafeImage
+                              src={item.image}
+                              alt={item.title}
+                              width={420}
+                              height={280}
+                              className="h-48 w-full object-cover"
+                              priority={index < 4}
+                            />
+                          </div>
+                          <div className="space-y-0.5 space-x-0.5">
+                            <p className="inline-flex rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700">
+                              {item.city}
+                            </p>
+                            <p className="line-clamp-1 text-sm font-medium text-ink-900">
+                              {item.title}
+                            </p>
+                            <p className="line-clamp-1 text-xs text-ink-500 ">
+                              ${item.price} for 1 nights
+                              <span className="ml-1 inline-flex items-center gap-0.5">
+                                <Star className="h-3 w-3 fill-current text-ink-700" />
+                                {item.rating}
+                              </span>
+                            </p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </>
+              ))}
+            </section>
+          ) : (
+            <section className="mt-10 md:mt-8 ">
+              <div className="mb-4 flex items-center gap-2">
+                <h2 className="text-2xl font-semibold tracking-tight text-ink-900">
+                  Top picks across the United States
+                </h2>
+                <ChevronRight className="h-5 w-5 text-ink-700 " />
+              </div>
+
+              <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+                {defaultGridCards.map((item, index) => {
+                  return (
+                    <Link
+                      key={item.id}
+                      className="block space-y-2"
+                      href={buildingListingHref(item.id)}
+                    >
+                      <div className="overflow-hidden rounded-2xl ">
+                        <SafeImage
+                          src={item.image}
+                          alt={item.title}
+                          width={420}
+                          height={280}
+                          className="h-48 w-full object-cover"
+                          priority={index < 4}
+                        />
+                      </div>
+                      <div className="space-y-0.5 space-x-0.5">
+                        <p className="inline-flex rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700">
+                          {item.city}
+                        </p>
+                        <p className="line-clamp-1 text-sm font-medium text-ink-900">
+                          {item.title}
+                        </p>
+                        <p className="line-clamp-1 text-xs text-ink-500 ">
+                          ${item.price} for 1 nights
+                          <span className="ml-1 inline-flex items-center gap-0.5">
+                            <Star className="h-3 w-3 fill-current text-ink-700" />
+                            {item.rating}
+                          </span>
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+        </>
+      )}
 
       <footer className="mt-16 rounded-3xl border border-ink-200 bg-surface p-6 shadow-sm md:mt-14 md:p-7 ">
         <div className="grid gap-8 md:grid-cols-4">
