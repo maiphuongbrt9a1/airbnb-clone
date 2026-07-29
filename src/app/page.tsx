@@ -137,7 +137,7 @@ export function groupByCity(cards: UnifiedCard[]) {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
-  const buildingListingHref = (listingId: string) => `/listing/${listingId}`;
+  const buildingListingHref = (listingId: string) => `/listings/${listingId}`;
   const hasAnyFilters = Boolean(params.category?.trim());
   const demoProperties = await fetchDemoProperties();
   const hasLocationSearch = Boolean(params.location?.trim());
