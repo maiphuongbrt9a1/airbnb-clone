@@ -1,5 +1,8 @@
 import { getCurrentUser } from "@/lib/auth";
 import { fetchDemoProperties } from "@/lib/demo-properties";
+import { ListingAbout } from "@/lib/listing/listing-about";
+import { ListingHeaderInfo } from "@/lib/listing/listing-header-info";
+import { ListingImageGallery } from "@/lib/listing/listing-image-gallery";
 import { prisma } from "@/lib/prisma";
 import { syncDemoListingById } from "@/lib/sync-demo-listings";
 import { notFound } from "next/navigation";
@@ -37,19 +40,117 @@ export default async function ListingPage({
     },
   });
 
+  const user = await getCurrentUser();
+  const isDemoListing = Boolean(
+    demoListingSeed && dbListing?.category === "Demo Stay",
+  );
+  const demoListing = demoListingSeed;
+  const hostRating = demoListing?.rating ?? 4.9;
+
+  if (!demoListing && !dbListing) notFound();
+  if (demoListing && !dbListing) notFound();
+
+  const listing = dbListing
+    ? {
+        id: dbListing.id,
+        title: dbListing.title,
+        description: dbListing.description,
+        locationValue: dbListing.locationValue,
+        imageSrc: dbListing.imageSrc,
+        imageGallery: dbListing.imageGallery,
+        pricePerNight: dbListing.pricePerNight,
+        category: dbListing.category,
+        guestCount: dbListing.guestCount,
+        roomCount: dbListing.roomCount,
+        bathroomCount: dbListing.bathroomCount,
+        hostname: dbListing.user?.name ?? "Verified host",
+      }
+    : {
+        id: demoListing!.id,
+        title: demoListing!.title,
+        description: `A curated demo stay in ${demoListing!.city} with a modern setup ideal for short trips and long weekends`,
+        locationValue: demoListing!.city,
+        imageSrc: demoListing!.image,
+        imageGallery: [demoListing!.image],
+        pricePerNight: demoListing!.pricePerNight,
+        category: "Demo Stay",
+        guestCount: demoListing!.maxGuests,
+        roomCount: Math.max(1, Math.round(demoListing!.maxGuests / 2)),
+        bathroomCount: Math.max(1, Math.round(demoListing!.maxGuests / 2)),
+        hostname: demoListing!.hostName,
+      };
+
+  const [reservationCount, recentReservations, userActiveReservations] =
+    await Promise.all([
+      prisma.reservation.count({
+        where: {
+          listingId: listingId,
+        },
+      }),
+      prisma.reservation.findMany({
+        where: {
+          listingId: listingId,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 6,
+      }),
+      user
+        ? prisma.reservation.findFirst({
+            where: {
+              listingId: listingId,
+              userId: user.id,
+              endDate: {
+                gte: new Date(),
+              },
+            },
+            orderBy: {
+              startDate: "asc",
+            },
+            select: { startDate: true, endDate: true },
+          })
+        : Promise.resolve(null),
+    ]);
   return (
     <main className="mx-auto min-h-screen max-w-7xl px-4 pb-28 pt-5 md:px-8 md:pb-10 md:pt-8">
       <article className="space-y-6 md:space-y-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] lg:items-start">
           <div className="order-2 space-y-6 md:space-y-7 lg:order-1">
             <section className="">
-              {/* <ListingImageGallery/> */}
-              <p className="">ListingImageGallery</p>
-              {/* <ListingHeaderInfo /> */}
-              <p className="">ListingHeaderInfo</p>
+              <ListingImageGallery
+                images={
+                  listing.imageGallery.length > 0
+                    ? listing.imageGallery
+                    : [listing.imageSrc]
+                }
+                altBase={listing.title}
+              />
+
+              <ListingHeaderInfo
+                category={listing.category}
+                title={listing.title}
+                locationValue={listing.locationValue}
+                hostRating={hostRating}
+                hostName={listing.hostname}
+                pricePerNight={listing.pricePerNight}
+                listingStatusLabel={
+                  isDemoListing
+                    ? "Featured demo listing"
+                    : reservationCount > 0
+                      ? `${reservationCount} confirmed booking${reservationCount > 1 ? "s" : ""}`
+                      : "Newly listed"
+                }
+              />
             </section>
-            {/* <ListingAbout/> */}
-            <p className="">ListingAbout</p>
+            <ListingAbout
+              description={listing.description}
+              guestCount={listing.guestCount}
+              roomCount={listing.roomCount}
+              bathroomCount={listing.bathroomCount}
+              hostName={listing.hostname}
+              hostRating={hostRating}
+            />
             {/* <ListingBookedRanges/> */}
             <p className="">ListingBookedRanges</p>
             {/* <ListingMap/> */}
