@@ -1,8 +1,10 @@
 import { getCurrentUser } from "@/lib/auth";
 import { fetchDemoProperties } from "@/lib/demo-properties";
 import { ListingAbout } from "@/lib/listing/listing-about";
+import { ListingBookedRanges } from "@/lib/listing/listing-booked-ranges";
 import { ListingHeaderInfo } from "@/lib/listing/listing-header-info";
 import { ListingImageGallery } from "@/lib/listing/listing-image-gallery";
+import { ListingMap } from "@/lib/listing/listing-map";
 import { prisma } from "@/lib/prisma";
 import { syncDemoListingById } from "@/lib/sync-demo-listings";
 import { notFound } from "next/navigation";
@@ -112,6 +114,12 @@ export default async function ListingPage({
           })
         : Promise.resolve(null),
     ]);
+
+  const bookedRanges = recentReservations.map((reservation) => ({
+    startDate: reservation.startDate,
+    endDate: reservation.endDate,
+  }));
+
   return (
     <main className="mx-auto min-h-screen max-w-7xl px-4 pb-28 pt-5 md:px-8 md:pb-10 md:pt-8">
       <article className="space-y-6 md:space-y-8">
@@ -151,10 +159,9 @@ export default async function ListingPage({
               hostName={listing.hostname}
               hostRating={hostRating}
             />
-            {/* <ListingBookedRanges/> */}
-            <p className="">ListingBookedRanges</p>
-            {/* <ListingMap/> */}
-            <p className="">ListingMap</p>
+
+            <ListingBookedRanges bookedRanges={bookedRanges} />
+            <ListingMap locationValue={listing.locationValue} />
           </div>
 
           <div className="order-1 lg:order-2">
