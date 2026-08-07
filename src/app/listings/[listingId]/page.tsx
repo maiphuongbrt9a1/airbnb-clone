@@ -1,11 +1,11 @@
 import { getCurrentUser } from "@/lib/auth";
 import { fetchDemoProperties } from "@/lib/demo-properties";
-import { ListingAbout } from "@/lib/listing/listing-about";
-import { ListingBookedRanges } from "@/lib/listing/listing-booked-ranges";
-import { ListingBookingSidebar } from "@/lib/listing/listing-booking-sidebar";
-import { ListingHeaderInfo } from "@/lib/listing/listing-header-info";
-import { ListingImageGallery } from "@/lib/listing/listing-image-gallery";
-import { ListingMap } from "@/lib/listing/listing-map";
+import { ListingAbout } from "@/components/listing/listing-about";
+import { ListingBookedRanges } from "@/components/listing/listing-booked-ranges";
+import { ListingBookingSidebar } from "@/components/listing/listing-booking-sidebar";
+import { ListingHeaderInfo } from "@/components/listing/listing-header-info";
+import { ListingImageGallery } from "@/components/listing/listing-image-gallery";
+import { ListingMap } from "@/components/listing/listing-map";
 import { prisma } from "@/lib/prisma";
 import { syncDemoListingById } from "@/lib/sync-demo-listings";
 import { notFound } from "next/navigation";

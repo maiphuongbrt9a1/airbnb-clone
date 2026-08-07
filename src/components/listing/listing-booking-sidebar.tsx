@@ -1,4 +1,5 @@
 import { CalendarCheck2 } from "lucide-react";
+import { ListingReservationForm } from "./listing-reservation-form";
 
 type ListingBookingSidebarProps = {
   listingId: string;
@@ -85,8 +86,20 @@ export function ListingBookingSidebar({
         </p>
 
         <div className="mt-4">
-          {/* <ListingReservationForm /> */}
-          <p className="">ListingReservationForm</p>
+          <ListingReservationForm
+            listingId={listingId}
+            pricePerNight={pricePerNight}
+            maxGuests={maxGuests}
+            isLoggedIn={isLoggedIn}
+            bookingStatus={bookingStatus}
+            bookingMessage={bookingMessage}
+            initialCheckIn={initialCheckIn}
+            initialCheckOut={initialCheckOut}
+            initialAdults={initialAdults}
+            initialChildren={initialChildren}
+            initialInfants={initialInfants}
+            unavailableRanges={unavailableRanges}
+          />
         </div>
       </section>
 
