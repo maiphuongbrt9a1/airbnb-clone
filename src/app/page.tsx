@@ -62,7 +62,7 @@ export function normalizeUsCity(location: string) {
   if (lower.includes("miami")) return "Miami, United States";
   if (lower.includes("chicago")) return "Chicago, United States";
   if (lower.includes("seattle")) return "Seattle, United States";
-  if (lower.includes("sans francisco")) return "Sans Francisco, United States";
+  if (lower.includes("san francisco")) return "San Francisco, United States";
   if (lower.includes("boston")) return "Boston, United States";
 
   return "United States";
@@ -137,10 +137,29 @@ export function groupByCity(cards: UnifiedCard[]) {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
-  const buildingListingHref = (listingId: string) => `/listings/${listingId}`;
-  const hasAnyFilters = Boolean(params.category?.trim());
   const demoProperties = await fetchDemoProperties();
+  const hasAnyFilters = Boolean(
+    params.location?.trim() ||
+    params.category?.trim() ||
+    params.checkIn?.trim() ||
+    params.checkOut?.trim() ||
+    params.guests?.trim() ||
+    params.adults?.trim() ||
+    params.children?.trim() ||
+    params.infants?.trim(),
+  );
   const hasLocationSearch = Boolean(params.location?.trim());
+
+  const listingQueryParams = new URLSearchParams();
+  if (params.location) listingQueryParams.set("location", params.location);
+  if (params.checkIn) listingQueryParams.set("checkIn", params.checkIn);
+  if (params.checkOut) listingQueryParams.set("checkOut", params.checkOut);
+  if (params.adults) listingQueryParams.set("adults", params.adults);
+  if (params.children) listingQueryParams.set("children", params.children);
+  if (params.infants) listingQueryParams.set("infants", params.infants);
+  const listingQuery = listingQueryParams.toString();
+  const buildingListingHref = (listingId: string) =>
+    `/listings/${listingId}${listingQuery ? `?${listingQuery}` : ""}`;
 
   const allCard: UnifiedCard[] = [
     ...demoProperties.map((property, index) => ({
@@ -163,7 +182,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     Number(params.adults ?? 0) +
       Number(params.children ?? 0) +
       Number(params.infants ?? 0) ||
-    Number(params.guests) ||
+    Number(params.guests || 1) ||
     1;
 
   const unifiedCards = allCard.filter((card) => {
@@ -182,7 +201,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   const limitedCards = unifiedCards.slice(0, 20);
   const defaultGridCards = limitedCards;
-  const groupedCards = groupByCity(limitedCards);
+  const groupedCards = groupByCity(limitedCards).slice(0, 8);
 
   const adults = Number(params.adults ?? 0) || 0;
   const children = Number(params.children ?? 0) || 0;

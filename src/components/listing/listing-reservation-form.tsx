@@ -12,6 +12,7 @@ import {
   PROCESSING_FEE_RATE,
 } from "../../lib/booking-rules";
 import { toValidate } from "../../lib/date-utils";
+import { createReservation } from "@/app/actions";
 
 type ListingReservationFormProps = {
   listingId: string;
@@ -35,6 +36,19 @@ type ListingReservationFormProps = {
 
 export function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
+}
+
+export function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className="w-full rounded-xl bg-brand-500 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-70 "
+      disabled={pending}
+    >
+      {pending ? "Confirming..." : "Reserver now"}
+    </button>
+  );
 }
 
 export function ListingReservationForm({
@@ -171,7 +185,7 @@ export function ListingReservationForm({
   return (
     <form
       id={formAnchorId}
-      action=""
+      action={createReservation}
       className="space-y-4 rounded-2xl border border-ink-200 bg-surface p-5"
     >
       {bookingStatus === "success" ? (
@@ -333,10 +347,12 @@ export function ListingReservationForm({
         </div>
       </div>
 
-      <p className="text-xs text-ink-500">
-        Reserved dates are unavailable. Choose check-in and check-out dates and
-        then confirm traveler count to continue.
-      </p>
+      {!range ? (
+        <p className="text-xs text-ink-500">
+          Reserved dates are unavailable. Choose check-in and check-out dates
+          and then confirm traveler count to continue.
+        </p>
+      ) : null}
 
       {isCalendarOpen ? (
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-ink-900/30 backdrop-blur-[1px] ">
@@ -358,9 +374,38 @@ export function ListingReservationForm({
                 Done
               </button>
             </div>
+
+            <div className="rounded-2xl border border-ink-100 bg-surface-muted px-2 pb-3 pt-2 ">
+              <DateRangePicker
+                selected={range}
+                onSelect={setRange}
+                disabled={disabledRanges}
+                numberOfMonths={1}
+                className="hero-daypicker mx-auto w-full max-w-full"
+              />
+            </div>
           </div>
         </div>
       ) : null}
+
+      <div className="rounded-xl bg-ink-50 p-3 text-sm text-ink-700">
+        <div className="flex items-center justify-between">
+          <span className="">
+            ${pricePerNight} x {nights || 0} nights
+          </span>
+          <span className="">${subTotal}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="">Processing fee (8%)</span>
+          <span className="">${processingFee}</span>
+        </div>
+        <div className="mt-2 flex items-center justify-between border-t border-ink-200 pt-2 text-base font-semibold text-ink-900 ">
+          <span className="">Total</span>
+          <span className="">${total}</span>
+        </div>
+      </div>
+
+      <SubmitButton />
     </form>
   );
 }
