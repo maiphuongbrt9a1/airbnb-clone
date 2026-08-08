@@ -174,3 +174,30 @@ export async function createReservation(formData: FormData) {
   revalidatePath("/host");
   redirect(`/listings/${listing!.id}?booking=success`);
 }
+
+export async function cancelReservation(formData: FormData) {
+  const user = await requireUser();
+  const reservationId = String(formData.get("reservationId") ?? "");
+  if (!reservationId) {
+    throw new Error("Reservation Id is missing...");
+  }
+
+  const reservation = await prisma.reservation.findFirst({
+    where: {
+      userId: user.id,
+      id: reservationId,
+    },
+  });
+
+  if (!reservation) {
+    redirect("/bookings?message=Reservation not found!");
+  }
+
+  await prisma.reservation.delete({ where: { id: reservationId } });
+
+  revalidatePath("/bookings");
+  revalidatePath(`/listings/${reservation.listingId}`);
+  revalidatePath("/host");
+
+  redirect("/bookings?message=Reservation cancelled successfully.");
+}

@@ -1,4 +1,7 @@
+import { ReservationCard } from "@/components/bookings/reservation-card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { PageIntro } from "@/components/ui/page-intro";
+import { StatCard } from "@/components/ui/stat-card";
 import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { uiShell } from "@/lib/ui-classes";
@@ -49,12 +52,26 @@ export default async function BookingsPage({
         </p>
       ) : null}
 
+      <section className="mt-5 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <StatCard label="Total bookings" value={reservations.length} />
+        <StatCard label="Active bookings" value={activeBookings.length} />
+        <StatCard label="Total spend" value={`${totalCharged}`} icon={Wallet} />
+      </section>
+
       <section className="mt-6 space-y-3 md:space-y-4">
         {reservations.length === 0 ? (
-          <p className="">Empty state</p>
+          <EmptyState
+            icon={CalendarX2}
+            title="No reservation yet"
+            description="Reserve your first stay and it will appear here."
+          />
         ) : (
           reservations.map((reservation) => (
-            <p key={reservation.id}>{reservation.listing.title}</p>
+            <ReservationCard
+              key={reservation.id}
+              reservation={reservation}
+              today={today}
+            />
           ))
         )}
       </section>

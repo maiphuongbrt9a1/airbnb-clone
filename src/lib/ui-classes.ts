@@ -1,5 +1,6 @@
 export const uiShell = {
-  pageContainer: "mx-auto min-h-screen max-w-7xl px-4 pt-5 md:px-8 md:pt-8",
+  pageContainer:
+    "mx-auto min-h-screen max-w-7xl w-full px-4 pt-5 md:px-8 md:pt-8",
   sectionCard:
     "rounded-3xl border border-ink-200 bg-surface p-5 shadow-sm md:p-7",
   panelCard: "rounded-2xl border border-ink-200 bg-surface p-4 shadow-sm",
