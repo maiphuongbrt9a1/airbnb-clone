@@ -64,6 +64,8 @@ export default async function BookingsPage({
             icon={CalendarX2}
             title="No reservation yet"
             description="Reserve your first stay and it will appear here."
+            actionHref="/"
+            actionLabel="Browser home."
           />
         ) : (
           reservations.map((reservation) => (
