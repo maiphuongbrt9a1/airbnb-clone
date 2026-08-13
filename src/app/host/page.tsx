@@ -9,6 +9,7 @@ import { uiShell } from "@/lib/ui-classes";
 import { BadgeCheck, Building2, DollarSign, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { createListing } from "../actions";
+import { HostListingItem } from "@/components/host/host-listing-item";
 
 export default async function HostDashboardPage() {
   const user = await requireUser();
@@ -87,8 +88,11 @@ export default async function HostDashboardPage() {
               ></EmptyState>
             ) : (
               listings.map((listing, index) => (
-                // <HostListingItem/>
-                <p key={index}>HostListingItems</p>
+                <HostListingItem
+                  key={listing.id}
+                  listing={listing}
+                  index={index}
+                />
               ))
             )}
           </div>
