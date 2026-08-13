@@ -4,6 +4,7 @@ import { ImageUp } from "lucide-react";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { SafeImage } from "./safe-image";
+import { useUploadThing } from "@/lib/uploadthing";
 
 type ListingFormProps = {
   action: (formData: FormData) => Promise<void>;
@@ -111,7 +112,7 @@ export function ListingForm({
   submittingLabel = "Publishing...",
   initialValue,
 }: ListingFormProps) {
-  const [galleryImage, setGalleryImage] = useState<string[]>(
+  const [galleryImages, setGalleryImages] = useState<string[]>(
     initialValue
       ? Array.from(
           new Set(
@@ -126,9 +127,58 @@ export function ListingForm({
 
   const [uploadError, setUploadError] = useState("");
   const [isDragActive, setIsDragActive] = useState(false);
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    onClientUploadComplete: (res) => {
+      const urls = (res ?? [])
+        .map((item) => item?.ufsUrl || item?.url || "")
+        .filter(Boolean);
+      setGalleryImages((prev) =>
+        Array.from(new Set([...prev, ...urls])).slice(0, 10),
+      );
+      setUploadError("");
+    },
+    onUploadError: (error) => {
+      setUploadError(error.message);
+    },
+  });
+  async function handleFileUpload(files: FileList | File[] | null) {
+    const list = files ? Array.from(files) : [];
+    if (list.length === 0) return;
+    if (galleryImages.length + list.length > 10) {
+      setUploadError("You can upload up to 10 images per listing.");
+      return;
+    }
+    if (list.some((file) => !file.type.startsWith("image/"))) {
+      setUploadError("Please upload an image file.");
+      return;
+    }
+    if (list.some((file) => file.size > 4 * 1024 * 1024)) {
+      setUploadError("Image must be 4MB or smaller.");
+      return;
+    }
+    setUploadError("");
+    await startUpload(list.slice(0, 10 - galleryImages.length));
+  }
+
+  function removeImage(imageUrl: string) {
+    setGalleryImages((prev) => prev.filter((image) => image !== imageUrl));
+  }
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    if (galleryImages.length === 0) {
+      event.preventDefault();
+      setUploadError(
+        "Upload at least one image. The first image is used as the cover photo.",
+      );
+    }
+  }
 
   return (
-    <form action="" className="mt-4 grid gap-3 md:grid-cols-2">
+    <form
+      action={action}
+      onSubmit={handleSubmit}
+      className="mt-4 grid gap-3 md:grid-cols-2"
+    >
       <FieldInput
         name="title"
         label="Title"
@@ -152,10 +202,11 @@ export function ListingForm({
             event.preventDefault();
             setIsDragActive(true);
           }}
-          onDragLeave={(event) => setIsDragActive(false)}
+          onDragLeave={() => setIsDragActive(false)}
           onDrop={(event) => {
             event.preventDefault();
             setIsDragActive(false);
+            void handleFileUpload(event.dataTransfer.files);
           }}
         >
           <input
@@ -164,6 +215,7 @@ export function ListingForm({
             multiple
             className="hidden"
             onChange={(event) => {
+              void handleFileUpload(event.target.files);
               event.currentTarget.value = "";
             }}
           />
@@ -171,12 +223,14 @@ export function ListingForm({
           <p className="text-sm font-semibold text-ink-800 ">
             Drag and drop images, or click to upload.
           </p>
-          <p className="text-xs text-ink-500">Up to 10 images, each max 4MB.</p>
+          <p className="text-xs text-ink-500">
+            Up to 10 images, each max 4MB. {isUploading ? "Uploading..." : ""}
+          </p>
         </label>
 
         <input
           name="imageSrc"
-          value={galleryImage[0] ?? ""}
+          value={galleryImages[0] ?? ""}
           readOnly
           required
           hidden
@@ -185,13 +239,50 @@ export function ListingForm({
 
         <input
           name="imageGallery"
-          value={JSON.stringify(galleryImage)}
+          value={JSON.stringify(galleryImages)}
           readOnly
           hidden
           className=""
         />
 
-        {/* Drop zone for image */}
+        {galleryImages.length > 0 ? (
+          <div className="mt-3 space-y-2 ">
+            <p className="text-sm text-emerald-700">
+              {galleryImages.length} image{galleryImages.length > 1 ? "s" : ""}{" "}
+              ready.
+            </p>
+            <div className="hide-scrollbar flex gap-2 overflow-x-auto pb-1">
+              {galleryImages.map((image, index) => (
+                <div className="relative" key={index}>
+                  <SafeImage
+                    src={image}
+                    alt={`Uploaded listing image ${index + 1}`}
+                    width={240}
+                    height={160}
+                    className="h-16 w-24 rounded-lg border border-ink-200 object-cover"
+                  />
+                  <button
+                    className="absolute -right-1.5 -top-1.5 rounded-full border border-ink-200 bg-surface px-1.5 py-0.5 text-[10px] font-semibold text-ink-700 hover:bg-ink-100"
+                    aria-label={`Remove image ${index + 1}`}
+                    type="button"
+                    onClick={() => removeImage(image)}
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-ink-600">
+            Upload at least one image. The first image is used as the cover
+            photo.
+          </p>
+        )}
+
+        {uploadError ? (
+          <p className="mt-2 text-sm text-red-600 ">{uploadError}</p>
+        ) : null}
       </div>
 
       <FieldTextarea

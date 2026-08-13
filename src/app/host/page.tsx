@@ -8,6 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { uiShell } from "@/lib/ui-classes";
 import { BadgeCheck, Building2, DollarSign, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { createListing } from "../actions";
 
 export default async function HostDashboardPage() {
   const user = await requireUser();
@@ -63,7 +64,7 @@ export default async function HostDashboardPage() {
           title="Create a listing"
           description="Add a professionally presented listing with photos, pricing and guest details."
         >
-          <ListingForm />
+          <ListingForm action={createListing} />
         </HostSection>
 
         <HostSection
