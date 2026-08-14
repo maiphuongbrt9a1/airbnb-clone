@@ -10,7 +10,7 @@ export default function ListingDetailsLoading() {
           <div className="space-y-6 md:space-y-7">
             <section className="overflow-hidden rounded-3xl border border-ink-200 bg-surface shadow-sm ">
               <div className="h-[280px] w-full bg-ink-200 md:h-[420px]"></div>
-              <div className="space-y-3 md:p-3">
+              <div className="space-y-3 md:p-3 pt-1">
                 <div className="h-6 w-28 rounded-full bg-ink-200"></div>
                 <div className="h-10 w-3/4 max-w-xl rounded-lg bg-ink-200"></div>
                 <div className="flex flex-wrap gap-3">

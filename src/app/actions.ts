@@ -251,3 +251,59 @@ export async function createListing(formData: FormData) {
   revalidatePath("/");
   revalidatePath("/host");
 }
+
+export async function deleteListing(formData: FormData) {
+  const user = await requireUser();
+  const listingId = String(formData.get("listingId") ?? "");
+  if (!listingId) throw new Error("Listing id is missing.");
+
+  await prisma.listing.deleteMany({
+    where: {
+      userId: user.id,
+      id: listingId,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/host");
+}
+
+export async function updateListing(listingId: string, formData: FormData) {
+  const user = await requireUser();
+  if (!listingId) throw new Error("Listing id is missing.");
+
+  const parsedGallery = parseListingGallery(formData.get("imageGallery"));
+  const parsed = listingSchema.safeParse({
+    title: formData.get("title"),
+    category: formData.get("category"),
+    description: formData.get("description"),
+    imageSrc: formData.get("imageSrc"),
+    imageGallery: parsedGallery,
+    roomCount: formData.get("roomCount"),
+    guestCount: formData.get("guestCount"),
+    bathroomCount: formData.get("bathroomCount"),
+    locationValue: formData.get("locationValue"),
+    pricePerNight: formData.get("pricePerNight"),
+  });
+
+  if (!parsed.success) {
+    throw new Error("Invalid listing payload.");
+  }
+
+  const updated = await prisma.listing.updateMany({
+    where: {
+      id: listingId,
+      userId: user.id,
+    },
+    data: parsed.data,
+  });
+
+  if (updated.count === 0) {
+    throw new Error("Listing not found or access denied.");
+  }
+
+  revalidatePath("/");
+  revalidatePath("/host");
+  revalidatePath(`/listings/${listingId}`);
+  redirect("/host");
+}

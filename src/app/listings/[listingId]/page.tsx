@@ -27,6 +27,13 @@ export default async function ListingPage({
   params,
   searchParams,
 }: ListingPageProps) {
+  /**
+   * Code for debug loading UI
+   */
+  // if (process.env.NODE_ENV === "development") {
+  //   await new Promise((r) => setTimeout(r, 50000));
+  // }
+
   const { listingId } = await params;
   const query = await searchParams;
   const demoProperties = await fetchDemoProperties();

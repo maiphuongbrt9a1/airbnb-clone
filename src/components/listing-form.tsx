@@ -230,18 +230,17 @@ export function ListingForm({
 
         <input
           name="imageSrc"
-          value={galleryImages[0] ?? ""}
-          readOnly
-          required
-          hidden
+          key={`imageSrc-${galleryImages[0] ?? "none"}`}
+          defaultValue={galleryImages[0] ?? ""}
+          type="hidden"
           className=""
         />
 
         <input
           name="imageGallery"
-          value={JSON.stringify(galleryImages)}
-          readOnly
-          hidden
+          defaultValue={JSON.stringify(galleryImages)}
+          key={`imageGallery-${JSON.stringify(galleryImages)}`}
+          type="hidden"
           className=""
         />
 

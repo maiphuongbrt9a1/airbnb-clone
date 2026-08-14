@@ -137,6 +137,14 @@ export function groupByCity(cards: UnifiedCard[]) {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
+
+  /**
+   * Code for debug loading UI
+   */
+  // if (process.env.NODE_ENV === "development") {
+  //   await new Promise((r) => setTimeout(r, 50000));
+  // }
+
   const demoProperties = await fetchDemoProperties();
   const hasAnyFilters = Boolean(
     params.location?.trim() ||
@@ -227,7 +235,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       : `${requestedGuests} guest${requestedGuests > 1 ? "s" : ""}`;
 
   return (
-    <main className="mx-auto min-h-screen max-w-7xl pb-14 pt-8 px-4 md:px-8 md:pb-12 md:pt-6">
+    <main className="mx-auto min-h- max-w-full lg:max-w-7xl pb-14 pt-8 px-4 md:px-8 md:pb-12 md:pt-6">
       <section className="rounded-3xl border border-ink-200 bg-gradient-to-br from-brand-50 via-surface to-ink-50 p-6 md:p-10">
         <div className="mx-auto max-w-[50.5rem] text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-600 ">
