@@ -1,4 +1,4 @@
-# 🏠 StayScape (Airbnb Clone Frontend)
+# 🏠 StayScape (Airbnb Clone)
 
 ![Next.js](https://img.shields.io/badge/Next.js-15+-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?style=for-the-badge&logo=typescript)
@@ -62,7 +62,7 @@ Dự án được xây dựng theo kiến trúc Fullstack trực tiếp trong Ne
 - **Tìm kiếm nâng cao:** Thanh tìm kiếm đa bước (Location, Dates, Guests) hỗ trợ hiển thị popover thông minh.
 - **Duyệt danh sách:** Lưới hiển thị danh sách phòng mô phỏng giao diện Airbnb với ảnh thu nhỏ, tên, địa điểm và giá.
 - **Chi tiết & Đặt phòng:** Xem thông tin chi tiết phòng, thư viện ảnh (Image Gallery), vị trí bản đồ (Listing Map).
-- **Form Đặt phòng Realtime:** Cho phép chọn ngày (với các ngày đã được đặt trước bị vô hiệu hóa), tính tổng giá phòng (tích hợp logic phí nền tảng), và gửi yêu cầu (Reservation).
+- **Form Đặt phòng:** Cho phép chọn ngày (với các ngày đã được đặt trước bị vô hiệu hóa), tính tổng giá phòng (tích hợp logic phí nền tảng), và gửi yêu cầu (Reservation).
 - **Quản lý Đặt phòng:** Trang `/bookings` hiển thị các chuyến đi sắp tới và chuyến đi trong quá khứ, hỗ trợ hủy đặt phòng.
 
 ### 🔑 Phân hệ Chủ nhà (Host)
