@@ -1,39 +1,46 @@
-This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+This file is a merged representation of a subset of the codebase, containing files not matching ignore patterns, combined into a single document by Repomix.
 
-# File Summary
+<file_summary>
+This section contains a summary of this file.
 
-## Purpose
-This file contains a packed representation of the entire repository's contents.
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
 It is designed to be easily consumable by AI systems for analysis, code review,
 or other automated processes.
+</purpose>
 
-## File Format
+<file_format>
 The content is organized as follows:
 1. This summary section
 2. Repository information
 3. Directory structure
 4. Repository files (if enabled)
 5. Multiple file entries, each consisting of:
-  a. A header with the file path (## File: path/to/file)
-  b. The full contents of the file in a code block
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
 
-## Usage Guidelines
+<usage_guidelines>
 - This file should be treated as read-only. Any changes should be made to the
   original repository files, not this packed version.
 - When processing this file, use the file path to distinguish
   between different files in the repository.
 - Be aware that this file may contain sensitive information. Handle it with
   the same level of security as you would the original repository.
+</usage_guidelines>
 
-## Notes
+<notes>
 - Some files may have been excluded based on .gitignore rules and Repomix's configuration
 - Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching these patterns are excluded: **/*.ico
 - Files matching patterns in .gitignore are excluded
 - Files matching default ignore patterns are excluded
 - Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
 
-# Directory Structure
-````
+</file_summary>
+
+<directory_structure>
 .agents/
   skills/
     prisma-cli/
@@ -164,6 +171,21 @@ src/
       auth/
         [...nextauth]/
           route.ts
+      uploadthing/
+        core.ts
+        route.ts
+    bookings/
+      page.tsx
+    host/
+      listings/
+        [listingId]/
+          edit/
+            page.tsx
+      page.tsx
+    listings/
+      [listingId]/
+        loading.tsx
+        page.tsx
     login/
       page.tsx
     register/
@@ -171,13 +193,32 @@ src/
     actions.ts
     globals.css
     layout.tsx
+    loading.tsx
     page.tsx
   auth/
     config.ts
   components/
+    bookings/
+      reservation-card.tsx
+    host/
+      host-listing-item.tsx
+      host-section.tsx
+    listing/
+      listing-about.tsx
+      listing-booked-ranges.tsx
+      listing-booking-sidebar.tsx
+      listing-header-info.tsx
+      listing-image-gallery.tsx
+      listing-map.tsx
+      listing-reservation-form.tsx
+    ui/
+      empty-state.tsx
+      page-intro.tsx
+      stat-card.tsx
     auth-buttons.tsx
     date-range-picker.tsx
     home-search-bar.tsx
+    listing-form.tsx
     navbar.tsx
     register-form.tsx
     safe-image.tsx
@@ -190,6 +231,8 @@ src/
     demo-properties.ts
     prisma.ts
     sync-demo-listings.ts
+    ui-classes.ts
+    uploadthing.ts
   types/
     demo-property.ts
 .gitignore
@@ -201,12 +244,12 @@ prisma.config.ts
 README.md
 skills-lock.json
 tsconfig.json
-````
+</directory_structure>
 
-# Files
+<files>
+This section contains the contents of the repository's files.
 
-## File: .agents/skills/prisma-cli/references/db-execute.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/db-execute.md">
 # prisma db execute
 
 Execute native commands (SQL) to your database.
@@ -285,10 +328,9 @@ export default defineConfig({
 
 - **No Data Return**: The command reports success/failure, not query results (rows). Use Prisma Client or `prisma studio` to view data.
 - **SQL Only**: Primarily for SQL databases.
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/db-pull.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/db-pull.md">
 # prisma db pull
 
 Introspects an existing database and updates your Prisma schema to reflect its structure.
@@ -474,10 +516,9 @@ May require manual refinement since MongoDB is schemaless.
 - Commit current schema before pulling
 - Use `--print` to preview first
 - Backup customizations you want to keep
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/db-push.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/db-push.md">
 # prisma db push
 
 Pushes schema changes directly to database without creating migrations. Ideal for prototyping.
@@ -626,10 +667,9 @@ prisma migrate dev --name init
 ```
 
 Then use `migrate dev` for future changes.
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/db-seed.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/db-seed.md">
 # prisma db seed
 
 Runs your database seed script to populate data.
@@ -818,10 +858,9 @@ if (env === 'development') {
 3. Use realistic but fake data
 4. Document required seed data
 5. Version control your seed scripts
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/debug.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/debug.md">
 # prisma debug
 
 Prints information helpful for debugging and bug reports.
@@ -868,10 +907,9 @@ Schema Engine        : ...
 - **Troubleshooting**: Checking version mismatches
 - **Reporting Issues**: Including environment info in GitHub issues
 - **Verifying Installation**: Ensuring correct binaries are downloaded
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/dev.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/dev.md">
 # prisma dev
 
 Starts a local Prisma Postgres database for development. Provides a PostgreSQL-compatible database that runs entirely on your machine.
@@ -1029,10 +1067,9 @@ prisma init --db
 ```
 
 Update your `DATABASE_URL` to the cloud connection string.
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/format.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/format.md">
 # prisma format
 
 Formats your Prisma schema file.
@@ -1081,10 +1118,9 @@ Most Prisma editor extensions (VS Code, WebStorm) run `prisma format` automatica
 - CI pipelines (check formatting)
 - CLI-based workflows
 - Fixing large schema refactors
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/generate.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/generate.md">
 # prisma generate
 
 Generates assets based on the generator blocks in your Prisma schema, most commonly Prisma Client.
@@ -1258,10 +1294,9 @@ import { Prisma } from '../generated/prisma/browser'
 import { Role } from '../generated/prisma/enums'
 import type { UserModel } from '../generated/prisma/models/User'
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/init.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/init.md">
 # prisma init
 
 Bootstraps a fresh Prisma ORM project in the current directory.
@@ -1398,10 +1433,9 @@ export default defineConfig({
 4. Run `prisma migrate dev` to create migrations
 5. Run `prisma generate` to generate Prisma Client
 6. Run `prisma db seed` explicitly if you want seed data
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/mcp.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/mcp.md">
 # prisma mcp
 
 Starts Prisma's MCP server for AI development tools.
@@ -1440,10 +1474,9 @@ prisma mcp
 
 - [Prisma CLI `mcp` command](https://docs.prisma.io/docs/cli/mcp)
 - [Prisma MCP Server](https://www.prisma.io/docs/ai/tools/chatgpt)
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/migrate-deploy.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/migrate-deploy.md">
 # prisma migrate deploy
 
 Applies pending migrations in production/staging environments.
@@ -1571,10 +1604,9 @@ export default defineConfig({
 2. Have a rollback plan (backup before migrations)
 3. Test migrations in staging first
 4. Never use `migrate dev` in production
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/migrate-dev.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/migrate-dev.md">
 # prisma migrate dev
 
 Creates and applies migrations during development. Requires a shadow database.
@@ -1720,10 +1752,9 @@ export default defineConfig({
 ```
 
 For local Prisma Postgres (`prisma dev`), shadow database is handled automatically.
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/migrate-diff.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/migrate-diff.md">
 # prisma migrate diff
 
 Compares database schemas and generates diffs (SQL or summary).
@@ -1813,10 +1844,9 @@ prisma migrate diff \
 - **Drift detection**: Checking if DB is in sync.
 - **Baselining**: Creating initial migration from existing DB.
 - **Debugging**: Understanding what `migrate dev` would do.
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/migrate-reset.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/migrate-reset.md">
 # prisma migrate reset
 
 Resets your database and re-applies all migrations.
@@ -1895,10 +1925,9 @@ prisma migrate reset --force
 prisma generate
 prisma db seed
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/migrate-resolve.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/migrate-resolve.md">
 # prisma migrate resolve
 
 Resolves issues with database migrations, such as failed migrations or baselining.
@@ -1956,10 +1985,9 @@ This tells Prisma "Forget this migration run, let me try applying it again".
 
 - [Baselining](https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/baselining)
 - [Troubleshooting](https://www.prisma.io/docs/guides/database/production-troubleshooting)
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/migrate-status.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/migrate-status.md">
 # prisma migrate status
 
 Checks the status of your database migrations.
@@ -2025,10 +2053,9 @@ To apply migrations in production, run:
 - `1`: Error
 
 To check for pending migrations programmatically, you might need to parse the output or use `migrate diff` with exit code flags.
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/studio.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/studio.md">
 # prisma studio
 
 Opens a visual database browser for viewing and editing data.
@@ -2166,10 +2193,9 @@ Studio provides direct database access. Only run on:
 - Local development machines
 - Secure internal networks
 - Never expose publicly
-````
+</file>
 
-## File: .agents/skills/prisma-cli/references/validate.md
-````markdown
+<file path=".agents/skills/prisma-cli/references/validate.md">
 # prisma validate
 
 Validates your Prisma schema file.
@@ -2223,10 +2249,9 @@ Run `validate` in your CI pipeline to catch schema errors early:
 - Invalid types
 - Duplicate model names
 - Syntax errors (missing braces, etc.)
-````
+</file>
 
-## File: .agents/skills/prisma-cli/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-cli/SKILL.md">
 ---
 name: prisma-cli
 description: Prisma ORM CLI commands reference covering init, generate, migrate, db, dev, studio, validate, format, debug, and mcp. Use for ORM/database CLI workflows, not Prisma Compute app deployment. For Prisma Compute, `@prisma/cli app deploy`, `compute:deploy`, `create-prisma --deploy`, apps, deployments, logs, or domains, use the `prisma-compute` skill instead. Triggers on "prisma init", "prisma generate", "prisma migrate", "prisma db", "prisma studio", "prisma mcp".
@@ -2474,10 +2499,9 @@ references/debug.md          - Debug info
 ## How to Use
 
 Use the command categories above for navigation, then open the specific command reference file you need.
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/client-methods.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/client-methods.md">
 # Client Methods
 
 Prisma Client instance methods.
@@ -2701,10 +2725,9 @@ const user = await prisma.user.findUnique({
 ```
 
 With the `prisma-client` generator, use TypeScript `satisfies` for typed query fragments. You may still see older examples that use `Prisma.validator()` with `prisma-client-js`.
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/constructor.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/constructor.md">
 # PrismaClient Constructor
 
 Configure Prisma Client when instantiating.
@@ -2913,10 +2936,9 @@ prisma.$on('info', (e) => console.log(e.message))
 prisma.$on('warn', (e) => console.warn(e.message))
 prisma.$on('error', (e) => console.error(e.message))
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/filters.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/filters.md">
 # Filter Conditions and Operators
 
 Filter operators for the `where` clause.
@@ -3173,10 +3195,9 @@ where: {
   }
 }
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/model-queries.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/model-queries.md">
 # Model Queries
 
 CRUD operations for your Prisma models.
@@ -3458,10 +3479,9 @@ const groups = await prisma.user.groupBy({
 | `count` | number |
 | `aggregate` | Aggregate result |
 | `groupBy` | Group result[] |
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/query-options.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/query-options.md">
 # Query Options
 
 Options for controlling query behavior.
@@ -3738,10 +3758,9 @@ const locations = await prisma.user.findMany({
   distinct: ['city', 'country']
 })
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/raw-queries.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/raw-queries.md">
 # Raw Queries
 
 Execute raw SQL when Prisma's query API isn't sufficient.
@@ -3936,10 +3955,9 @@ const users = await prisma.$queryRaw<Result[]>`
 `
 // createdAt is already a Date object
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/relations.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/relations.md">
 # Relation Queries
 
 Query and modify related records.
@@ -4248,10 +4266,9 @@ const users = await prisma.user.findMany({
   }
 })
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/references/transactions.md
-````markdown
+<file path=".agents/skills/prisma-client-api/references/transactions.md">
 # Transactions
 
 Execute multiple operations atomically.
@@ -4436,10 +4453,9 @@ await prisma.$transaction(
 | Conditional logic | No | Yes |
 | Performance | Better | More flexible |
 | Use case | Simple batch | Complex logic |
-````
+</file>
 
-## File: .agents/skills/prisma-client-api/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-client-api/SKILL.md">
 ---
 name: prisma-client-api
 description: Prisma Client API reference covering model queries, filters, operators, and client methods. Use when writing database queries, using CRUD operations, filtering data, or configuring Prisma Client. Triggers on "prisma query", "findMany", "create", "update", "delete", "$transaction".
@@ -4656,10 +4672,9 @@ references/client-methods.md     - $connect, $disconnect, $on, $extends
 ## How to Use
 
 Pick the category from the table above, then open the matching reference file for implementation details and examples.
-````
+</file>
 
-## File: .agents/skills/prisma-compute/references/app-deploy-cli.md
-````markdown
+<file path=".agents/skills/prisma-compute/references/app-deploy-cli.md">
 # Prisma Platform CLI App Deploy
 
 Use this reference for existing projects and for generated `compute:deploy` scripts.
@@ -5063,10 +5078,9 @@ When `--json` is available, parse the JSON and summarize:
 - database id/name if one was created
 
 Do not print secret env var values.
-````
+</file>
 
-## File: .agents/skills/prisma-compute/references/compute-config.md
-````markdown
+<file path=".agents/skills/prisma-compute/references/compute-config.md">
 # Prisma Compute Config
 
 Use this reference when creating or updating `prisma.compute.ts`, especially for monorepos, multi-app deploys, reusable framework defaults, env inputs, ports, entrypoints, or build settings.
@@ -5289,10 +5303,9 @@ The config does not declare databases. Keep database intent in `database create`
 ## Relationship to `prisma.config.ts`
 
 Do not put Compute deploy defaults in `prisma.config.ts`. Prisma ORM uses `prisma.config.ts`, while Compute uses `prisma.compute.ts`.
-````
+</file>
 
-## File: .agents/skills/prisma-compute/references/create-prisma.md
-````markdown
+<file path=".agents/skills/prisma-compute/references/create-prisma.md">
 # create-prisma Compute Flow
 
 Use this reference when creating a new app with Prisma and optionally deploying it to Prisma Compute.
@@ -5410,10 +5423,9 @@ All Prisma 7 scaffolds:
 ## Failure Handling
 
 If `--deploy` is explicit and setup cannot authenticate, cannot run the Platform CLI, or cannot complete the integrated deploy, report that deploy failed and keep the scaffolded project. Do not delete the user's files.
-````
+</file>
 
-## File: .agents/skills/prisma-compute/references/frameworks.md
-````markdown
+<file path=".agents/skills/prisma-compute/references/frameworks.md">
 # Prisma Compute Framework Readiness
 
 Use this reference when deciding whether and how an app can deploy to Prisma Compute.
@@ -5796,10 +5808,9 @@ bunx @prisma/cli@latest app deploy \
 ```
 
 Verify the actual output path before using this command.
-````
+</file>
 
-## File: .agents/skills/prisma-compute/references/sdk-api.md
-````markdown
+<file path=".agents/skills/prisma-compute/references/sdk-api.md">
 # SDK and API Automation
 
 Use this reference when building automation rather than using `create-prisma` or `@prisma/cli app deploy`.
@@ -5943,10 +5954,9 @@ Do not log:
 - full database URLs
 - env var values
 - pre-signed upload URLs
-````
+</file>
 
-## File: .agents/skills/prisma-compute/references/troubleshooting.md
-````markdown
+<file path=".agents/skills/prisma-compute/references/troubleshooting.md">
 # Troubleshooting Prisma Compute
 
 Use this reference when setup, build, deploy, env, or runtime behavior fails.
@@ -6382,10 +6392,9 @@ bunx @prisma/cli@latest feedback "app deploy crashed: <first error line>"
 ```
 
 Prefer the pre-filled command from a `--json` crash envelope's `nextActions` verbatim. Anonymous; never put secrets, connection URLs, or tokens in the message.
-````
+</file>
 
-## File: .agents/skills/prisma-compute/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-compute/SKILL.md">
 ---
 name: prisma-compute
 description: Prisma Compute deployment and hosting guide. Use whenever the user mentions Prisma Compute, `prisma.compute.ts`, `defineComputeConfig`, deploying or hosting a Prisma app, `@prisma/cli app deploy`, `compute:deploy`, `create-prisma --deploy`, `PRISMA_SERVICE_TOKEN`, `auth workspace`, Compute apps/deployments/build logs/domains, `@prisma/cli agent install`, `@prisma/cli feedback`, localhost vs `0.0.0.0`, deploy port binding, or framework deploy readiness for Hono, Elysia, Next.js, TanStack Start, Astro, Nuxt, Svelte, Nest, Turborepo, or custom/prebuilt artifacts.
@@ -6578,10 +6587,9 @@ Use this skill for:
 - Do not tell users that every `create-prisma` template can auto-deploy.
 - Do not deploy with placeholder `DATABASE_URL` values.
 - Do not assume `next start` is the Compute runtime path; Next.js deploys need standalone output.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/cockroachdb.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/cockroachdb.md">
 # CockroachDB Setup
 
 Configure Prisma with CockroachDB.
@@ -6671,10 +6679,9 @@ model User {
 
 ### Schema Introspection
 Always use `provider = "cockroachdb"` to ensure correct type mapping during `db pull`.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/mongodb.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/mongodb.md">
 # MongoDB Setup
 
 MongoDB projects should stay on the latest Prisma 6.x release. Do not upgrade a MongoDB app to Prisma 7's SQL client path.
@@ -6765,10 +6772,9 @@ Ensure your MongoDB instance is a **Replica Set**. Standalone instances do not s
 
 ### "Invalid ObjectID"
 Ensure fields referencing IDs are decorated with `@db.ObjectId` if the target is an ObjectID.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/mysql.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/mysql.md">
 # MySQL Setup
 
 Configure Prisma with MySQL (or MariaDB).
@@ -6895,10 +6901,9 @@ DATABASE_URL="mysql://...?connection_limit=5"
 
 ### JSON Support
 MySQL 5.7+ supports JSON. MariaDB 10.2+ supports JSON (as an alias for LONGTEXT with check constraints). Prisma handles this, but verify your version.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/postgresql.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/postgresql.md">
 # PostgreSQL Setup
 
 Configure Prisma with PostgreSQL.
@@ -6991,10 +6996,9 @@ Use a driver adapter for the standard SQL workflow.
 
 ### "Schema does not exist"
 - Ensure `?schema=public` (or your schema) is in the URL
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/prisma-client-setup.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/prisma-client-setup.md">
 # Prisma Client Setup
 
 Generate and instantiate Prisma Client for Prisma's standard SQL provider workflow. For MongoDB, follow the provider-specific notes in `references/mongodb.md` instead of copying the SQL adapter example below.
@@ -7042,10 +7046,9 @@ If you change the generator `output`, update the import path to match. For the S
 ## 5. Use a single instance
 
 Each `PrismaClient` instance creates a connection pool. Reuse a single instance per app process to avoid exhausting database connections.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/prisma-postgres.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/prisma-postgres.md">
 # Prisma Postgres Setup
 
 Configure Prisma with Prisma Postgres (Managed).
@@ -7176,10 +7179,9 @@ This serverless driver is the specialized path for HTTP/WebSocket-based edge and
 ## Using with Prisma Client
 
 Use the Prisma Postgres adapter shown above when instantiating Prisma Client.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/sqlite.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/sqlite.md">
 # SQLite Setup
 
 Configure Prisma with SQLite.
@@ -7286,10 +7288,9 @@ For edge compatibility or Turso:
 
 ### "Database file not found"
 Ensure the path in `DATABASE_URL` is correct relative to where Prisma is running or the schema file. `file:./dev.db` creates it next to schema.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/references/sqlserver.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/references/sqlserver.md">
 # SQL Server Setup
 
 Configure Prisma with Microsoft SQL Server.
@@ -7384,10 +7385,9 @@ Use a driver adapter for the standard SQL workflow.
 
 ### "Table not found" (dbo schema)
 Prisma assumes `dbo` schema by default. If using another schema, update the model or connection string? SQL Server provider mostly sticks to default schema.
-````
+</file>
 
-## File: .agents/skills/prisma-database-setup/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-database-setup/SKILL.md">
 ---
 name: prisma-database-setup
 description: Guides for configuring Prisma with different database providers (PostgreSQL, MySQL, SQLite, MongoDB, etc.). Use when setting up a new project, changing databases, or troubleshooting connection issues. Triggers on "configure postgres", "connect to mysql", "setup mongodb", "sqlite setup".
@@ -7580,10 +7580,9 @@ references/prisma-client-setup.md
 ## How to Use
 
 Choose the provider reference file for your database, then apply `references/prisma-client-setup.md` to complete client generation and adapter setup. For MongoDB, use `references/mongodb.md` instead of copying the SQL adapter examples or Prisma 7 config pattern.
-````
+</file>
 
-## File: .agents/skills/prisma-driver-adapter-implementation/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-driver-adapter-implementation/SKILL.md">
 ---
 name: prisma-driver-adapter-implementation
 description: Required reference for Prisma v7 driver adapter work. Use when implementing or modifying adapters, adding database drivers, or touching SqlDriverAdapter/Transaction interfaces. Contains critical contract details not inferable from code examples — including the transaction lifecycle protocol, error mapping requirements, and verification checklist. Existing implementations do not replace this skill.
@@ -8222,10 +8221,9 @@ Before considering the adapter complete:
 - [ ] Isolation level validation for the target database
 - [ ] Unit tests pass for queryRaw, executeRaw, executeScript, transactions
 - [ ] E2E tests pass with real PrismaClient
-````
+</file>
 
-## File: .agents/skills/prisma-mongodb-upgrade/references/client-api-mapping.md
-````markdown
+<file path=".agents/skills/prisma-mongodb-upgrade/references/client-api-mapping.md">
 # client-api-mapping
 
 How v6 Prisma Client calls map to Prisma Next's Mongo client — names map, parity does not.
@@ -8287,10 +8285,9 @@ await session.withTransaction(async () => {
 - [v6 MongoDB raw queries](https://www.prisma.io/docs/orm/prisma-client/using-raw-sql/raw-queries#raw-queries-with-mongodb)
 - [v6 replica set requirement for transactions](https://www.prisma.io/docs/orm/overview/databases/mongodb#replica-set-configuration)
 - Prisma Next queries + runtime skills (`skills/prisma-next-queries`, incl. its dedicated `mongo.md`; `skills/prisma-next-runtime`) — authoritative for the Next side; verified @ `a2791c5dd59d579b4b3052942ae7f8fe5e2ee852`
-````
+</file>
 
-## File: .agents/skills/prisma-mongodb-upgrade/references/decision-stay-or-migrate.md
-````markdown
+<file path=".agents/skills/prisma-mongodb-upgrade/references/decision-stay-or-migrate.md">
 # decision-stay-or-migrate
 
 How to decide between migrating a MongoDB project to Prisma Next and staying on Prisma v6.
@@ -8378,10 +8375,9 @@ Staying is a decision, not a default-by-neglect:
 
 - [Prisma Next repository](https://github.com/prisma/prisma-next)
 - [Prisma v6 MongoDB documentation](https://www.prisma.io/docs/orm/overview/databases/mongodb)
-````
+</file>
 
-## File: .agents/skills/prisma-mongodb-upgrade/references/migrations-mapping.md
-````markdown
+<file path=".agents/skills/prisma-mongodb-upgrade/references/migrations-mapping.md">
 # migrations-mapping
 
 How the v6 MongoDB "no migrations" story maps onto Prisma Next's first-class migration flow.
@@ -8447,10 +8443,9 @@ mirroring how `db push` was used on v6.
 
 - [v6: no Prisma Migrate for MongoDB](https://www.prisma.io/docs/orm/overview/databases/mongodb#no-support-for-prisma-migrate)
 - Prisma Next migrations skill (`skills/prisma-next-migrations`) — authoritative for the Next side; verified @ `a2791c5dd59d579b4b3052942ae7f8fe5e2ee852`
-````
+</file>
 
-## File: .agents/skills/prisma-mongodb-upgrade/references/schema-contract-mapping.md
-````markdown
+<file path=".agents/skills/prisma-mongodb-upgrade/references/schema-contract-mapping.md">
 # schema-contract-mapping
 
 How v6 MongoDB schema concepts map onto Prisma Next's contract model.
@@ -8503,10 +8498,9 @@ so check the server version before planning a migration.
 - [v6 MongoDB schema documentation](https://www.prisma.io/docs/orm/overview/databases/mongodb)
 - [v6 composite types (MongoDB-only)](https://www.prisma.io/docs/orm/prisma-client/special-fields-and-types/composite-types)
 - Prisma Next contract skill (`skills/prisma-next-contract`) in the prisma-next repository — authoritative for the Next side
-````
+</file>
 
-## File: .agents/skills/prisma-mongodb-upgrade/references/verify-cutover-checklist.md
-````markdown
+<file path=".agents/skills/prisma-mongodb-upgrade/references/verify-cutover-checklist.md">
 # verify-cutover-checklist
 
 Verification checklist for a v6 → Prisma Next cutover: the data never moves — only the code does.
@@ -8567,10 +8561,9 @@ hand-off rule in `SKILL.md`).
 
 - [v6 MongoDB documentation](https://www.prisma.io/docs/orm/overview/databases/mongodb)
 - Prisma Next migrations + queries skills — authoritative for the Next side; verified @ `a2791c5dd59d579b4b3052942ae7f8fe5e2ee852`
-````
+</file>
 
-## File: .agents/skills/prisma-mongodb-upgrade/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-mongodb-upgrade/SKILL.md">
 ---
 name: prisma-mongodb-upgrade
 description: Decision and migration guide for Prisma ORM MongoDB projects on v6, which have no upgrade path to v7. Use when a MongoDB project asks about upgrading Prisma, when "upgrade to prisma 7" comes up in a project with provider = "mongodb", or when evaluating a move to Prisma Next. Triggers on "upgrade prisma mongodb", "prisma 7 mongodb", "mongodb prisma migration", "prisma next mongodb".
@@ -8663,10 +8656,9 @@ This skill is the **discovery bridge**, not a replacement for Prisma Next's own
 documentation. After a project switches to Prisma Next, run Prisma Next's `init`/skill
 installation and follow its own skills (quickstart, contract, queries, migrations, runtime)
 for day-to-day work — do not keep working from this skill's summaries.
-````
+</file>
 
-## File: .agents/skills/prisma-postgres/references/console-and-connections.md
-````markdown
+<file path=".agents/skills/prisma-postgres/references/console-and-connections.md">
 # console-and-connections
 
 Use Prisma Console workflows for project visibility, data inspection, and connection setup.
@@ -8736,10 +8728,9 @@ Management API connection responses expose both `endpoints.direct` (`db.prisma.i
 - [Prisma Postgres overview](https://www.prisma.io/docs/postgres/introduction/overview)
 - [Viewing data](https://www.prisma.io/docs/postgres/integrations/viewing-data)
 - [Direct connections](https://www.prisma.io/docs/postgres/database/direct-connections)
-````
+</file>
 
-## File: .agents/skills/prisma-postgres/references/create-db-cli.md
-````markdown
+<file path=".agents/skills/prisma-postgres/references/create-db-cli.md">
 # create-db-cli
 
 Use `create-db` for instant Prisma Postgres provisioning from the terminal.
@@ -8876,10 +8867,9 @@ npx create-db@latest --json
 ## References
 
 - [npx create-db docs](https://www.prisma.io/docs/postgres/introduction/npx-create-db)
-````
+</file>
 
-## File: .agents/skills/prisma-postgres/references/management-api-sdk.md
-````markdown
+<file path=".agents/skills/prisma-postgres/references/management-api-sdk.md">
 # management-api-sdk
 
 Use `@prisma/management-api-sdk` for typed API integration with optional OAuth and token refresh.
@@ -8936,10 +8926,9 @@ const api = createManagementApiSdk({
 ## References
 
 - [Management API SDK docs](https://www.prisma.io/docs/postgres/introduction/management-api-sdk)
-````
+</file>
 
-## File: .agents/skills/prisma-postgres/references/management-api.md
-````markdown
+<file path=".agents/skills/prisma-postgres/references/management-api.md">
 # management-api
 
 Use Prisma Management API for programmatic provisioning and workspace/project/database management.
@@ -9009,10 +8998,9 @@ Workspace -> Project -> Branch -> Database. Branches are a first-class resource:
 - [Management API docs](https://www.prisma.io/docs/postgres/introduction/management-api)
 - [OpenAPI docs](https://api.prisma.io/v1/doc)
 - [Swagger Editor](https://api.prisma.io/v1/swagger-editor)
-````
+</file>
 
-## File: .agents/skills/prisma-postgres/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-postgres/SKILL.md">
 ---
 name: prisma-postgres
 description: Prisma Postgres setup and operations guidance across Console, create-db CLI, Management API, and Management API SDK. Use when creating Prisma Postgres databases, working in Prisma Console, provisioning with create-db/create-pg/create-postgres, or integrating programmatic provisioning with service tokens or OAuth.
@@ -9154,10 +9142,9 @@ references/management-api-sdk.md
 ## How to Use
 
 Start with `references/create-db-cli.md` for fast setup, then switch to `references/management-api.md` or `references/management-api-sdk.md` when you need programmatic provisioning.
-````
+</file>
 
-## File: .agents/skills/prisma-postgres-setup/references/api-basics.md
-````markdown
+<file path=".agents/skills/prisma-postgres-setup/references/api-basics.md">
 # api-basics
 
 Core conventions for the Prisma Management API. All three `prisma-postgres-*` skills share these patterns.
@@ -9260,10 +9247,9 @@ All errors follow this shape:
 - **404**: Verify the resource ID includes the correct prefix (`proj_`, `db_`, `con_`). Use `GET /v1/projects` or `GET /v1/databases` to list available resources.
 - **422**: Check the request body against the endpoint schema. Common issues: missing required fields, invalid region ID, empty `name`.
 - **429**: Wait 2–5 seconds and retry. If repeated, increase the backoff interval.
-````
+</file>
 
-## File: .agents/skills/prisma-postgres-setup/references/auth.md
-````markdown
+<file path=".agents/skills/prisma-postgres-setup/references/auth.md">
 # auth
 
 How to authenticate with the Prisma Management API using service tokens.
@@ -9310,10 +9296,9 @@ Service tokens are workspace-scoped. A single token grants access to all project
 OAuth is used when acting on behalf of a user, typically in partner/integrator flows. See the `prisma-postgres-integrator` skill for OAuth details.
 
 For standard database setup, service tokens are the recommended authentication method.
-````
+</file>
 
-## File: .agents/skills/prisma-postgres-setup/references/endpoints.md
-````markdown
+<file path=".agents/skills/prisma-postgres-setup/references/endpoints.md">
 # endpoints
 
 Management API endpoint details for database setup workflows.
@@ -9537,10 +9522,9 @@ DELETE /v1/projects/{projectId}
 ```
 
 Permanently deletes a project and all its databases. Returns `204 No Content` on success.
-````
+</file>
 
-## File: .agents/skills/prisma-postgres-setup/references/prisma7-client.md
-````markdown
+<file path=".agents/skills/prisma-postgres-setup/references/prisma7-client.md">
 # Prisma 7 Client Instantiation
 
 Prisma 7 changed how PrismaClient connects to databases. The CLI (`prisma db push`, `prisma migrate`) reads the URL from `prisma.config.ts`. But at **runtime**, you must provide a driver adapter to PrismaClient explicitly.
@@ -9623,10 +9607,9 @@ await pool.end()
 | `new PrismaClient({ datasourceUrl: url })` | `Unknown property datasourceUrl` | Use adapter pattern instead |
 | Missing `"type": "module"` in package.json | ESM import errors | Add `"type": "module"` |
 | `import { PrismaClient } from '@prisma/client'` | Wrong export | Use `./generated/prisma/client.js` |
-````
+</file>
 
-## File: .agents/skills/prisma-postgres-setup/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-postgres-setup/SKILL.md">
 ---
 name: prisma-postgres-setup
 description: Set up a new Prisma Postgres database and connect it to a local project using the Management API. Use when asked to "set up a database", "create a Prisma Postgres project", "get a connection string", "connect my app to Prisma Postgres", or "provision a database".
@@ -9890,10 +9873,9 @@ references/api-basics.md       — Base URL, envelope, IDs, errors, pagination
 references/endpoints.md        — Endpoint details for projects, databases, connections, regions
 references/prisma7-client.md   — Prisma 7 client instantiation and usage patterns
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/references/accelerate-users.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/references/accelerate-users.md">
 # Prisma Accelerate Users
 
 Special migration instructions for users of Prisma Accelerate or Prisma Postgres with `prisma://` or `prisma+postgres://` URLs.
@@ -10045,10 +10027,9 @@ export const prisma = new PrismaClient({
   accelerateUrl: process.env.DATABASE_URL,
 }).$extends(withAccelerate())
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/references/driver-adapters.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/references/driver-adapters.md">
 # Driver Adapters
 
 Prisma v7 requires driver adapters for SQL database connections. This is the standard SQL execution path in current Prisma releases.
@@ -10316,10 +10297,9 @@ if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma
 }
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/references/env-variables.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/references/env-variables.md">
 # Environment Variables
 
 Prisma v7 no longer automatically loads environment variables. You must load them explicitly.
@@ -10481,10 +10461,9 @@ steps:
 ```
 
 No need for dotenv in CI if variables are set directly.
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/references/esm-support.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/references/esm-support.md">
 # ESM and CommonJS Support
 
 Prisma ORM v7 is ESM-first, but the `prisma-client` generator can target either ESM or CommonJS. Use ESM by default, and opt into CommonJS with `moduleFormat = "cjs"` if your project still needs it.
@@ -10613,10 +10592,9 @@ Your app is still being executed as CommonJS. Add `"type": "module"` or use `mod
 ### TypeScript compilation errors
 
 Ensure `module`, `moduleResolution`, and your generator's `moduleFormat` agree with one another.
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/references/prisma-config.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/references/prisma-config.md">
 # Prisma Config
 
 Prisma v7 introduces `prisma.config.ts` as the central configuration file for the Prisma CLI.
@@ -10820,10 +10798,9 @@ export default defineConfig({
   },
 })
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/references/removed-features.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/references/removed-features.md">
 # Removed Features
 
 Several features have been removed in Prisma v7. Here's how to migrate.
@@ -11054,10 +11031,9 @@ const user = await prisma.user.findFirstOrThrow({
   where: { email: 'test@example.com' },
 })
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/references/schema-changes.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/references/schema-changes.md">
 # Schema Changes
 
 Prisma v7 promotes `prisma-client` to the default generator. Update your generator block, output path, and imports accordingly.
@@ -11222,10 +11198,9 @@ generator client {
   previewFeatures = ["partialIndexes"]
 }
 ```
-````
+</file>
 
-## File: .agents/skills/prisma-upgrade-v7/SKILL.md
-````markdown
+<file path=".agents/skills/prisma-upgrade-v7/SKILL.md">
 ---
 name: prisma-upgrade-v7
 description: Complete migration guide from Prisma ORM v6 to v7 covering all breaking changes. Use when upgrading Prisma versions, encountering v7 errors, or migrating existing projects. Triggers on "upgrade to prisma 7", "prisma 7 migration", "prisma-client generator", "driver adapter required".
@@ -11485,10 +11460,9 @@ npx prisma migrate dev  # if needed
 ## How to Use
 
 Follow `references/schema-changes.md` and `references/driver-adapters.md` first, then apply the remaining reference files based on your project setup.
-````
+</file>
 
-## File: .windsurf/prisma/migrations/20260723103545_init/migration.sql
-````sql
+<file path=".windsurf/prisma/migrations/20260723103545_init/migration.sql">
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -11601,125 +11575,15 @@ ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_userId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_listingId_fkey" FOREIGN KEY ("listingId") REFERENCES "Listing"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-````
+</file>
 
-## File: .windsurf/prisma/migrations/migration_lock.toml
-````toml
+<file path=".windsurf/prisma/migrations/migration_lock.toml">
 # Please do not edit this file manually
 # It should be added in your version-control system (e.g., Git)
 provider = "postgresql"
-````
+</file>
 
-## File: .windsurf/prisma/schema.prisma
-````prisma
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
-generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-}
-
-datasource db {
-  provider = "postgresql"
-}
-
-// User
-model User {
-  id             String        @id @default(cuid())
-  name           String?
-  email          String?       @unique
-  emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  accounts       Account[]
-  sessions       Session[]
-  listings       Listing[]
-  reservations   Reservation[]
-}
-
-// Account
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-// Session 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// VerificationToken
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-// Listing
-model Listing {
-  id            String   @id @default(cuid())
-  userId        String
-  title         String
-  description   String
-  imageSrc      String
-  imageGallery  String[] @default([])
-  category      String
-  roomCount     Int
-  bathroomCount Int
-  guestCount    Int
-  locationValue String
-  pricePerNight Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reservations Reservation[]
-}
-
-// Reservation
-model Reservation {
-  id         String   @id @default(cuid())
-  userId     String
-  listingId  String
-  startDate  DateTime
-  endDate    DateTime
-  totalPrice Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
-}
-````
-
-## File: .windsurf/prisma/seed.ts
-````typescript
+<file path=".windsurf/prisma/seed.ts">
 import { syncDemoListingsToDatabase } from "@/lib/sync-demo-listings";
 async function main() {
   await syncDemoListingsToDatabase();
@@ -11734,10 +11598,9 @@ main()
     );
     process.exitCode = 1;
   });
-````
+</file>
 
-## File: public/icon.svg
-````xml
+<file path="public/icon.svg">
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="64" height="64" rx="16" fill="#FF385C"/>
   <path
@@ -11746,20 +11609,91 @@ main()
   />
   <path d="M28.4 50V40.4H35.6V50" stroke="#FF385C" stroke-width="2.4" stroke-linecap="round"/>
 </svg>
-````
+</file>
 
-## File: src/app/api/auth/[...nextauth]/route.ts
-````typescript
+<file path="src/app/api/auth/[...nextauth]/route.ts">
 import { authOptions } from "@/auth/config";
 import NextAuth from "next-auth";
 
 const handler = NextAuth(authOptions as never);
 
 export { handler as GET, handler as POST };
-````
+</file>
 
-## File: src/app/login/page.tsx
-````typescript
+<file path="src/app/host/listings/[listingId]/edit/page.tsx">
+import { updateListing } from "@/app/actions";
+import { ListingForm } from "@/components/listing-form";
+import { PageIntro } from "@/components/ui/page-intro";
+import { requireUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { uiShell } from "@/lib/ui-classes";
+import { ArrowLeft, PencilLine } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+type EditListingPageProps = {
+  params: Promise<{ listingId: string }>;
+};
+
+export default async function EditListingPage({
+  params,
+}: EditListingPageProps) {
+  const user = await requireUser();
+  const { listingId } = await params;
+  const listing = await prisma.listing.findFirst({
+    where: { id: listingId, userId: user.id },
+  });
+
+  if (!listing) notFound();
+
+  async function updateListingAction(formData: FormData) {
+    "use server";
+    await updateListing(listingId, formData);
+  }
+
+  return (
+    <main className={uiShell.pageContainer}>
+      <PageIntro
+        badge="Edit listing"
+        icon={PencilLine}
+        title={`Update ${listing.title}`}
+        description="Refine listing details, update guest capacity, and mange gallery images."
+        action={
+          <Link
+            href={"/host"}
+            className="inline-flex items-center gap-2 rounded-full border border-ink-300 px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:bg-ink-50"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back to hosting dashboard
+          </Link>
+        }
+      />
+
+      <section className={uiShell.sectionCard}>
+        <ListingForm
+          action={updateListingAction}
+          submitLabel="Save changes"
+          submittingLabel="Saving..."
+          initialValue={{
+            title: listing.title,
+            category: listing.category,
+            description: listing.description,
+            locationValue: listing.locationValue,
+            pricePerNight: listing.pricePerNight,
+            guestCount: listing.guestCount,
+            roomCount: listing.roomCount,
+            bathroomCount: listing.bathroomCount,
+            imageSrc: listing.imageSrc,
+            imageGallery: listing.imageGallery,
+          }}
+        />
+      </section>
+    </main>
+  );
+}
+</file>
+
+<file path="src/app/login/page.tsx">
 "use client";
 
 import Link from "next/link";
@@ -11892,10 +11826,9 @@ export default function LoginPage() {
     </main>
   );
 }
-````
+</file>
 
-## File: src/app/register/page.tsx
-````typescript
+<file path="src/app/register/page.tsx">
 import { BadgeCheck, HeartHandshake, House } from "lucide-react";
 import Link from "next/link";
 import { registerUser } from "../actions";
@@ -11956,68 +11889,686 @@ export default function RegisterPage() {
     </main>
   );
 }
-````
+</file>
 
-## File: src/app/actions.ts
-````typescript
-"use server";
+<file path="src/components/bookings/reservation-card.tsx">
+import { cancelReservation } from "@/app/actions";
+import { format } from "date-fns";
+import { Clock3, MapPin } from "lucide-react";
+import Link from "next/link";
 
-import { requireUser } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { z } from "zod";
+type ReservationCardProps = {
+  reservation: {
+    id: string;
+    listingId: string;
+    startDate: Date;
+    endDate: Date;
+    totalPrice: number;
+    listing: {
+      title: string;
+      locationValue: string;
+    };
+  };
 
-/**
- * Schema for register
- */
-const registerSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  password: z.string().min(8),
-});
+  today: Date;
+};
 
-export async function registerUser(formData: FormData) {
-  const parsed = registerSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+export function ReservationCard({ reservation, today }: ReservationCardProps) {
+  const isActive = reservation.endDate >= today;
+  return (
+    <article className="rounded-2xl border border-ink-200 bg-surface p-4 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md md:p-5">
+      <div className="min-w-0 space-y-2">
+        <h2 className="line-clamp-2 text-base font-semibold text-ink-900 md:text-lg">
+          {reservation.listing.title}
+        </h2>
+        <p className="inline-flex items-center gap-1.5 text-sm text-ink-600 mx-1">
+          <MapPin className="h-4 w-4 shrink-0" />
+          {reservation.listing.locationValue}
+        </p>
+        <p className="inline-flex items-center gap-1.5 text-sm text-ink-600">
+          <Clock3 className="h-4 w-4 shrink-0" />
+          {format(reservation.startDate, "PPP")} -{" "}
+          {format(reservation.endDate, "PPP")}
+        </p>
+      </div>
 
-  if (!parsed.success) {
-    throw new Error("Invalid registration input");
-  }
+      <div className="mt-3 border-t border-ink-200 pt-3">
+        <div className="flex items-start justify-between gap-3">
+          <p
+            className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${isActive ? "bg-emerald-50 text-emerald-700" : "bg-ink-100 text-ink-700"}`}
+          >
+            {isActive ? "Active" : "Past"}
+          </p>
+          <div className="text-right">
+            <p className="text-xs text-ink-500">Booking total</p>
+            <p className="text-2xl font-semibold leading-none text-ink-900 md:text-lg mt-1">
+              ${reservation.totalPrice}
+            </p>
+          </div>
+        </div>
 
-  /**
-   * Prevent duplicate email
-   */
-  const existing = await prisma.user.findUnique({
-    where: {
-      email: parsed.data.email,
-    },
-  });
+        <div className="mt-3 grid gap-2 sm:flex sm:flex-wrap sm:justify-end">
+          <Link
+            href={`/listings/${reservation.listingId}`}
+            className="inline-flex w-full items-center justify-center rounded-xl border border-ink-300 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:bg-ink-50 sm:w-auto sm:rounded-full sm:py-1 sm:text-xs "
+          >
+            View stay
+          </Link>
+          {isActive ? (
+            <form action={cancelReservation} className="w-full sm:w-auto">
+              <input
+                type="hidden"
+                className=""
+                name="reservationId"
+                value={reservation.id}
+              />
 
-  if (existing) {
-    throw new Error("Email has already existed");
-  }
-
-  const hashedPassword = await bcrypt.hash(parsed.data.password, 12);
-
-  await prisma.user.create({
-    data: {
-      name: parsed.data.name,
-      email: parsed.data.email,
-      hashedPassword: hashedPassword,
-    },
-  });
-
-  redirect("/login");
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center rounded-xl border border-red-300 px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 sm:w-auto sm:rounded-full sm:py-1 sm:text-xs"
+              >
+                Cancel reservation
+              </button>
+            </form>
+          ) : null}
+        </div>
+      </div>
+    </article>
+  );
 }
-````
+</file>
 
-## File: src/components/auth-buttons.tsx
-````typescript
+<file path="src/components/host/host-section.tsx">
+import { ReactNode } from "react";
+
+type HostSectionProps = {
+  title: string;
+  description?: string;
+  action?: ReactNode;
+  children: ReactNode;
+};
+
+export function HostSection({
+  title,
+  description,
+  action,
+  children,
+}: HostSectionProps) {
+  return (
+    <section className="rounded-3xl border border-ink-200 bg-surface p-5 shadow-sm md:p-6">
+      <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
+        <div className="">
+          <h2 className="text-lg font-semibold text-ink-900 md:text-xl ">
+            {title}
+          </h2>
+          {description ? (
+            <p className="mt-1 text-sm text-ink-600">{description}</p>
+          ) : null}
+        </div>
+
+        {action ? <div>{action}</div> : null}
+      </div>
+      {children}
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/listing/listing-about.tsx">
+import { Bath, BedDouble, Users } from "lucide-react";
+import { hostname } from "os";
+
+type ListingAboutProps = {
+  description: string;
+  guestCount: number;
+  roomCount: number;
+  bathroomCount: number;
+  hostName: string;
+  hostRating: number;
+};
+
+export function ListingAbout({
+  description,
+  guestCount,
+  roomCount,
+  bathroomCount,
+  hostName,
+  hostRating,
+}: ListingAboutProps) {
+  return (
+    <section className="rounded-3xl border border-ink-200 bg-surface p-5 shadow-sm md:p-6 ">
+      <h2 className="text-lg font-semibold text-ink-900 md:text-xl ">
+        About this stay
+      </h2>
+      <p className="mt-3 leading-relaxed text-ink-700 ">{description}</p>
+      <div className="mt-5 flex flex-wrap gap-2.5">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-3 py-1.5 text-xs text-ink-700 md:text-sm">
+          <Users className="h-4 w-4" />
+          {guestCount} guest{guestCount > 1 ? "s" : ""}
+        </span>
+
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-3 py-1.5 text-xs text-ink-700 md:text-sm">
+          <BedDouble className="h-4 w-4" />
+          {roomCount} room{roomCount > 1 ? "s" : ""}
+        </span>
+
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-3 py-1.5 text-xs text-ink-700 md:text-sm">
+          <Bath className="h-4 w-4" />
+          {bathroomCount} bath room{bathroomCount > 1 ? "s" : ""}
+        </span>
+      </div>
+
+      <div className="mt-6 grid gap-4 border-t border-ink-200 pt-4 text-sm text-ink-700 md:grid-cols-2 ">
+        <div className="space-y-1.5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-500">
+            Host
+          </p>
+          <p className="text-sm font-medium text-ink-900 ">{hostName}</p>
+          <p className="text-xs text-ink-500">
+            Hosted by {hostName}, currently rated {hostRating.toFixed(1)} by
+            guests
+          </p>
+        </div>
+
+        <div className="space-y-1.5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-500">
+            Booking details
+          </p>
+          <p className="text-xs text-ink-500">
+            Free cancellation up to 7 days before check-in.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/listing/listing-booked-ranges.tsx">
+import { CalendarDaysIcon } from "lucide-react";
+
+type ListingBookedRangesProps = {
+  bookedRanges: Array<{
+    startDate: Date;
+    endDate: Date;
+  }>;
+};
+
+export function ListingBookedRanges({
+  bookedRanges,
+}: ListingBookedRangesProps) {
+  if (bookedRanges.length === 0) return null;
+
+  return (
+    <section className="rounded-3xl border border-ink-200 bg-gradient-to-br from-surface via-surface to-ink-50/70 p-4 shadow-sm md:p-5 ">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ink-200 pb-3 ">
+        <div className="inline-flex items-center gap-2 ">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-brand-600 ">
+            <CalendarDaysIcon className="h-4 w-4 " />
+          </span>
+          <h2 className="text-sm font-semibold text-ink-900 md:text-base">
+            Recent Reservations
+          </h2>
+        </div>
+        <p className="rounded-full bg-ink-100 px-2.5 py-1 text-[11px] font-medium text-ink-600">
+          {bookedRanges.length} recent booking
+          {bookedRanges.length > 1 ? "s" : ""}
+        </p>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2 text-xs text-ink-700">
+        {bookedRanges.map((range, index) => (
+          <span
+            className="inline-flex items-center gap-1 rounded-full border border-ink-200 bg-surface px-3 py-1.5 font-medium shadow-sm "
+            key={`${range.startDate.toISOString()} - ${index}`}
+          >
+            {range.startDate.toLocaleDateString()} -{" "}
+            {range.endDate.toLocaleDateString()}
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/listing/listing-booking-sidebar.tsx">
+import { CalendarCheck2 } from "lucide-react";
+import { ListingReservationForm } from "./listing-reservation-form";
+
+type ListingBookingSidebarProps = {
+  listingId: string;
+  pricePerNight: number;
+  hostName: string;
+  reservationCount: number;
+  userActiveReservation?: { startDate: Date; endDate: Date } | null;
+  maxGuests: number;
+  isLoggedIn: boolean;
+  bookingStatus?: "success" | "error" | null;
+  bookingMessage?: string | null;
+  initialCheckIn?: string | null;
+  initialCheckOut?: string | null;
+  initialAdults?: string | null;
+  initialChildren?: string | null;
+  initialInfants?: string | null;
+  unavailableRanges: Array<{
+    startDate: Date;
+    endDate: Date;
+  }>;
+};
+export function ListingBookingSidebar({
+  listingId,
+  pricePerNight,
+  hostName,
+  reservationCount,
+  userActiveReservation,
+  maxGuests,
+  isLoggedIn,
+  bookingStatus,
+  bookingMessage,
+  initialCheckIn,
+  initialCheckOut,
+  initialAdults,
+  initialChildren,
+  initialInfants,
+  unavailableRanges,
+}: ListingBookingSidebarProps) {
+  return (
+    <aside className="space-y-4 lg:sticky lg:top-20 lg:self-start">
+      <section
+        id={`booking-panel-${listingId}`}
+        className="rounded-3xl border border-ink-200 bg-surface p-5 shadow-lg shadow-ink-900/5"
+      >
+        <div className="flex items-baseline justify-between">
+          <p className="text-2xl font-semibold text-ink-900 ">
+            ${pricePerNight}
+            <span className="ml-1 text-sm font-medium text-ink-600 ">
+              / night
+            </span>
+          </p>
+
+          <p className="hidden text-xs text-ink-500 md:block">
+            {reservationCount > 0
+              ? `${reservationCount} booking${reservationCount > 1 ? "s" : ""}`
+              : "No booking yet"}
+          </p>
+        </div>
+
+        {userActiveReservation ? (
+          <div className="mt-3 rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-emerald-100/70 p-3 shadow-sm shadow-emerald-900/50 ">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
+                <CalendarCheck2 className="h-4 w-4" />
+              </span>
+              <div className="">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-800">
+                  You are booked
+                </p>
+                <p className="mt-1 text-sm font-medium text-emerald-900 ">
+                  You have a reservation for this stay.
+                </p>
+                <p className="mt-1 text-xs text-emerald-800">
+                  {userActiveReservation.startDate.toLocaleDateString()} -{" "}
+                  {userActiveReservation.endDate.toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        <p className="mt-1 text-xs text-ink-500 md:hidden ">
+          Hosted by {hostName}
+        </p>
+
+        <div className="mt-4">
+          <ListingReservationForm
+            listingId={listingId}
+            pricePerNight={pricePerNight}
+            maxGuests={maxGuests}
+            isLoggedIn={isLoggedIn}
+            bookingStatus={bookingStatus}
+            bookingMessage={bookingMessage}
+            initialCheckIn={initialCheckIn}
+            initialCheckOut={initialCheckOut}
+            initialAdults={initialAdults}
+            initialChildren={initialChildren}
+            initialInfants={initialInfants}
+            unavailableRanges={unavailableRanges}
+          />
+        </div>
+      </section>
+
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-ink-200 bg-surface/95 px-4 py-3 shadow-[0_-8px_24px_-18px_rgba(15,23,42,0.35)] backdrop-blur md:px-6 lg:hidden">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3">
+          <p className="text-sm text-ink-700 ">
+            <span className="text-base font-semibold text-ink-900 ">
+              ${pricePerNight}
+            </span>
+            <span className="ml-1">/ night</span>
+          </p>
+
+          <a
+            href={`#booking-panel-${listingId}`}
+            className="inline-flex rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-600 "
+          >
+            {isLoggedIn ? "Book this stay" : "Sign in to book"}
+          </a>
+        </div>
+      </div>
+    </aside>
+  );
+}
+</file>
+
+<file path="src/components/listing/listing-header-info.tsx">
+import { MapPin, Star } from "lucide-react";
+
+type ListingHeaderInfoProps = {
+  category: string;
+  title: string;
+  locationValue: string;
+  hostRating: number;
+  hostName: string;
+  pricePerNight: number;
+  listingStatusLabel: string;
+};
+
+export function ListingHeaderInfo({
+  category,
+  title,
+  locationValue,
+  hostRating,
+  hostName,
+  pricePerNight,
+  listingStatusLabel,
+}: ListingHeaderInfoProps) {
+  return (
+    <div className="space-y-4 p-5 md:p-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="space-y-2">
+          {/* Category badge */}
+          <p className="inline-flex rounded-full bg-brand-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">
+            {category}
+          </p>
+          <h1 className="text-2xl font-semibold tracking-tight text-ink-900 md:text-3xl lg:text-4xl">
+            {title}
+          </h1>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-ink-600 md:text-sm">
+            <span className="inline-flex items-center gap-1.5 ">
+              <MapPin className="h-4 w-4" />
+              {locationValue}
+            </span>
+            <span className="inline-flex items-center gap-1.5 ">
+              <Star className="h-4 w-4 fill-current text-ink-700" />
+              {hostRating.toFixed(1)} host rating
+            </span>
+            <span>{listingStatusLabel}</span>
+          </div>
+        </div>
+
+        <div className="hidden rounded-2xl border border-ink-200 bg-surface-muted px-4 py-3 text-right text-sm font-medium text-ink-900 md:block">
+          <p className="">
+            ${pricePerNight}
+            <span className="ml-1 text-xs font-normal text-ink-600">
+              {" "}
+              / night
+            </span>
+          </p>
+          <p className="mt-1 text-xs text-ink-500 ">Hosted by {hostName}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/listing/listing-image-gallery.tsx">
+"use client";
+
+import { SafeImage } from "@/components/safe-image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMemo, useState } from "react";
+
+type ListingImageGalleryProps = {
+  images: string[];
+  altBase: string;
+};
+
+export function ListingImageGallery({
+  images,
+  altBase,
+}: ListingImageGalleryProps) {
+  const uniqueImages = useMemo(
+    () => Array.from(new Set(images.filter(Boolean))),
+    [images],
+  );
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  if (uniqueImages.length === 0) {
+    return null;
+  }
+
+  const activeImage =
+    uniqueImages[Math.min(activeIndex, uniqueImages.length - 1)];
+
+  const canNavigate = uniqueImages.length > 1 ? true : false;
+
+  return (
+    <section className="overflow-hidden rounded-3xl border border-ink-200 bg-surface shadow-sm ">
+      <div className="relative">
+        <SafeImage
+          src={activeImage}
+          alt={`${altBase} image ${activeIndex + 1}`}
+          width={1600}
+          height={900}
+          className="h-[260px] w-full object-cover md:h-[460px]"
+          priority
+        />
+
+        {canNavigate ? (
+          <>
+            <button
+              type="button"
+              aria-label="Previous Image"
+              onClick={() =>
+                setActiveIndex(
+                  (prev) =>
+                    (prev - 1 + uniqueImages.length) % uniqueImages.length,
+                )
+              }
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/50 bg-black/40 p-2 text-white backdrop-blur hover:bg-black/55"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            <button
+              type="button"
+              aria-label="Next Image"
+              onClick={() =>
+                setActiveIndex((prev) => (prev + 1) % uniqueImages.length)
+              }
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/50 bg-black/40 p-2 text-white backdrop-blur hover:bg-black/55"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </>
+        ) : null}
+
+        {/* Count overlay */}
+        <div className="absolute bottom-3 right-3 rounded-full bg-black/55 px-3 py-1 text-xs font-medium text-white ">
+          {activeIndex + 1} / {uniqueImages.length}
+        </div>
+      </div>
+
+      {canNavigate ? (
+        <div className="hide-scrollbar flex gap-2 overflow-x-auto border-t border-ink-200 bg-surface-muted p-3">
+          {uniqueImages.map((image, index) => (
+            <button
+              className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border transition ${activeIndex === index ? "border-brand-400 ring-2 ring-brand-100" : "border-ink-200 hover:border-ink-300"}`}
+              key={`${image}-${index}`}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              aria-label={`Show image ${index + 1}`}
+            >
+              <SafeImage
+                src={image}
+                alt={`${altBase} thumbnail ${index + 1}`}
+                height={160}
+                width={240}
+                className="h-full w-full object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/listing/listing-map.tsx">
+type ListingMapProps = {
+  locationValue: string;
+};
+
+export function ListingMap({ locationValue }: ListingMapProps) {
+  return (
+    <section className="overflow-hidden rounded-3xl border border-ink-200 bg-gradient-to-br from-ink-50 via-surface to-ink-50 p-4 shadow-sm md:p-6 ">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between ">
+        <div className="max-w-md space-y-2">
+          <h2 className="text-lg font-semibold text-ink-900 md:text-xl ">
+            Where you will be
+          </h2>
+          <p className="text-sm text-ink-600">
+            {locationValue}. The map pin is approximate and shown for the trip
+            planing.
+          </p>
+        </div>
+      </div>
+      <div className="mt-4 overflow-hidden rounded-2xl border border-ink-200 ">
+        <iframe
+          title={`Map for the ${locationValue}`}
+          src={`https://www.google.com/maps?hl=en&q=${encodeURIComponent(locationValue)}&z=14&output=embed`}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="h-72 w-full border-0 md:h-80 "
+        ></iframe>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/ui/empty-state.tsx">
+import { uiShell } from "@/lib/ui-classes";
+import { LucideIcon } from "lucide-react";
+import Link from "next/link";
+
+type EmptyStateProps = {
+  title: string;
+  description: string;
+  icon?: LucideIcon;
+  actionHref?: string;
+  actionLabel?: string;
+};
+
+export function EmptyState({
+  title,
+  description,
+  icon: Icon,
+  actionHref,
+  actionLabel,
+}: EmptyStateProps) {
+  return (
+    <div className={uiShell.emptyState}>
+      {Icon ? <Icon className="mx-auto h-8 w-8 text-ink-400" /> : null}
+      <p className="mt-2 text-sm font-medium text-ink-700 ">{title}</p>
+      <p className="mt-1 text-sm text-ink-600">{description}</p>
+      {actionHref && actionLabel ? (
+        <Link
+          href={actionHref}
+          className="mt-3 inline-flex rounded-full border border-ink-300 px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:bg-ink-50 "
+        >
+          {actionLabel}
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/ui/page-intro.tsx">
+import { uiShell } from "@/lib/ui-classes";
+import { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
+
+type PageIntroProps = {
+  badge: string;
+  title: string;
+  description: string;
+  icon?: LucideIcon;
+  action?: ReactNode;
+};
+
+export function PageIntro({
+  badge,
+  title,
+  description,
+  icon: Icon,
+  action,
+}: PageIntroProps) {
+  return (
+    <section className={uiShell.sectionCard}>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="">
+          <p className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-600 ">
+            {Icon ? <Icon className="h-3.5 w-3.5"></Icon> : null}
+            {badge}
+          </p>
+          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-ink-900 md:text-3xl ">
+            {title}
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm text-ink-600 md:text-base">
+            {description}
+          </p>
+        </div>
+        {action ? <div>{action}</div> : null}
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/ui/stat-card.tsx">
+import { uiShell } from "@/lib/ui-classes";
+import { LucideIcon } from "lucide-react";
+
+type StatCardProps = {
+  label: string;
+  value: string | number;
+  icon?: LucideIcon;
+};
+
+export function StatCard({ label, value, icon: Icon }: StatCardProps) {
+  return (
+    <article className={uiShell.panelCard}>
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-500">
+          {label}
+        </p>
+        {Icon ? (
+          <span className="rounded-full bg-brand-50 p-2 text-brand-600">
+            <Icon className="h-4 w-4" />
+          </span>
+        ) : null}
+      </div>
+      <p className="mt-2 text-2xl font-semibold text-ink-900 ">{value}</p>
+    </article>
+  );
+}
+</file>
+
+<file path="src/components/auth-buttons.tsx">
 "use client";
 
 import { Menu, UserCircle2 } from "lucide-react";
@@ -12136,10 +12687,9 @@ export function UserMenu({
     </div>
   );
 }
-````
+</file>
 
-## File: src/components/date-range-picker.tsx
-````typescript
+<file path="src/components/date-range-picker.tsx">
 "use client";
 
 import { addDays, addMonths } from "date-fns";
@@ -12212,10 +12762,9 @@ export function DateRangePicker({
     </div>
   );
 }
-````
+</file>
 
-## File: src/components/home-search-bar.tsx
-````typescript
+<file path="src/components/home-search-bar.tsx">
 "use client";
 import { format } from "date-fns";
 import { Search } from "lucide-react";
@@ -12570,10 +13119,9 @@ export function HomeSearchBar({
     </div>
   );
 }
-````
+</file>
 
-## File: src/components/safe-image.tsx
-````typescript
+<file path="src/components/safe-image.tsx">
 "use client";
 
 import Image from "next/image";
@@ -12625,10 +13173,9 @@ export function SafeImage({
     />
   );
 }
-````
+</file>
 
-## File: src/data/us-listings-seed.ts
-````typescript
+<file path="src/data/us-listings-seed.ts">
 import type { DemoProperty } from "@/types/demo-property";
 import { addDays, format, startOfToday } from "date-fns";
 function buildAvailabilityDates(
@@ -12935,10 +13482,9 @@ export const US_LISTINGS_SEED: DemoProperty[] = [
     ]),
   },
 ];
-````
+</file>
 
-## File: src/lib/auth.ts
-````typescript
+<file path="src/lib/auth.ts">
 import { authOptions } from "@/auth/config";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -12979,27 +13525,24 @@ export async function requireUser() {
 
   return user;
 }
-````
+</file>
 
-## File: src/lib/booking-rules.ts
-````typescript
+<file path="src/lib/booking-rules.ts">
 export const PROCESSING_FEE_RATE = 0.08;
 export const MAX_INFANTS = 2;
 export const MIN_ADULTS = 1;
-````
+</file>
 
-## File: src/lib/date-utils.ts
-````typescript
+<file path="src/lib/date-utils.ts">
 export function toValidate(value?: string) {
   if (!value) return undefined;
   const date = new Date(value);
 
   return Number.isNaN(date.getTime()) ? undefined : date;
 }
-````
+</file>
 
-## File: src/lib/demo-properties.ts
-````typescript
+<file path="src/lib/demo-properties.ts">
 import type { DemoProperty } from "@/types/demo-property";
 import { US_LISTINGS_SEED } from "@/data/us-listings-seed";
 export type { DemoProperty } from "@/types/demo-property";
@@ -13009,10 +13552,9 @@ export async function fetchDemoProperties(): Promise<DemoProperty[]> {
   inMemoryCache = US_LISTINGS_SEED;
   return inMemoryCache;
 }
-````
+</file>
 
-## File: src/lib/prisma.ts
-````typescript
+<file path="src/lib/prisma.ts">
 import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
 
@@ -13042,10 +13584,9 @@ export const prisma =
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
-````
+</file>
 
-## File: src/lib/sync-demo-listings.ts
-````typescript
+<file path="src/lib/sync-demo-listings.ts">
 import { prisma } from "@/lib/prisma";
 import { fetchDemoProperties, type DemoProperty } from "@/lib/demo-properties";
 function demoListingDescription(city: string) {
@@ -13115,10 +13656,23 @@ export async function syncDemoListingsToDatabase() {
     await upsertDemoListingRow(host.id, property);
   }
 }
-````
+</file>
 
-## File: src/types/demo-property.ts
-````typescript
+<file path="src/lib/uploadthing.ts">
+import {
+  generateReactHelpers,
+  generateUploadButton,
+  generateUploadDropzone,
+} from "@uploadthing/react";
+
+import type { OurFileRouter } from "@/app/api/uploadthing/core";
+
+export const UploadButton = generateUploadButton<OurFileRouter>();
+export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
+export const { useUploadThing } = generateReactHelpers<OurFileRouter>();
+</file>
+
+<file path="src/types/demo-property.ts">
 export type DemoProperty = {
   id: string;
   title: string;
@@ -13130,10 +13684,9 @@ export type DemoProperty = {
   maxGuests: number;
   availableDates: string[];
 };
-````
+</file>
 
-## File: eslint.config.mjs
-````javascript
+<file path="eslint.config.mjs">
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
@@ -13152,10 +13705,9 @@ const eslintConfig = defineConfig([
 ]);
 
 export default eslintConfig;
-````
+</file>
 
-## File: postcss.config.mjs
-````javascript
+<file path="postcss.config.mjs">
 const config = {
   plugins: {
     "@tailwindcss/postcss": {},
@@ -13163,10 +13715,9 @@ const config = {
 };
 
 export default config;
-````
+</file>
 
-## File: README.md
-````markdown
+<file path="README.md">
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -13203,10 +13754,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-````
+</file>
 
-## File: skills-lock.json
-````json
+<file path="skills-lock.json">
 {
   "version": 1,
   "skills": {
@@ -13266,10 +13816,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
     }
   }
 }
-````
+</file>
 
-## File: tsconfig.json
-````json
+<file path="tsconfig.json">
 {
   "compilerOptions": {
     "target": "ES2017",
@@ -13304,10 +13853,223 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
   ],
   "exclude": ["node_modules"]
 }
-````
+</file>
 
-## File: src/app/globals.css
-````css
+<file path=".windsurf/prisma/schema.prisma">
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User
+model User {
+  id             String        @id @default(cuid())
+  name           String?
+  email          String?       @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  accounts       Account[]
+  sessions       Session[]
+  listings       Listing[]
+  reservations   Reservation[]
+}
+
+// Account
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+// Session 
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// VerificationToken
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Listing
+model Listing {
+  id            String   @id @default(cuid())
+  userId        String
+  title         String
+  description   String
+  imageSrc      String
+  imageGallery  String[] @default([])
+  category      String
+  roomCount     Int
+  bathroomCount Int
+  guestCount    Int
+  locationValue String
+  pricePerNight Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations Reservation[]
+}
+
+// Reservation
+model Reservation {
+  id         String   @id @default(cuid())
+  userId     String
+  listingId  String
+  startDate  DateTime
+  endDate    DateTime
+  totalPrice Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
+</file>
+
+<file path="src/app/api/uploadthing/core.ts">
+import { createUploadthing, type FileRouter } from "uploadthing/next";
+const f = createUploadthing();
+
+export const ourFileRouter = {
+  imageUploader: f({
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 10,
+    },
+  }).onUploadComplete(async ({ file }) => {
+    return { url: file.ufsUrl };
+  }),
+} satisfies FileRouter;
+
+export type OurFileRouter = typeof ourFileRouter;
+</file>
+
+<file path="src/app/api/uploadthing/route.ts">
+import { createRouteHandler } from "uploadthing/next";
+import { ourFileRouter } from "./core";
+
+export const { GET, POST } = createRouteHandler({
+  router: ourFileRouter,
+});
+</file>
+
+<file path="src/app/listings/[listingId]/loading.tsx">
+export default function ListingDetailsLoading() {
+  return (
+    <main
+      role="status"
+      aria-label="Loading listing details"
+      className="mx-auto w-full min-h-screen max-w-7xl animate-pulse px-4 pb-10 pt-5 md:px-8 md:pt-8"
+    >
+      <article className="space-y-6 md:space-y-8">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] lg:items-start">
+          <div className="space-y-6 md:space-y-7">
+            <section className="overflow-hidden rounded-3xl border border-ink-200 bg-surface shadow-sm ">
+              <div className="h-[280px] w-full bg-ink-200 md:h-[420px]"></div>
+              <div className="space-y-3 md:p-3 pt-1">
+                <div className="h-6 w-28 rounded-full bg-ink-200"></div>
+                <div className="h-10 w-3/4 max-w-xl rounded-lg bg-ink-200"></div>
+                <div className="flex flex-wrap gap-3">
+                  <div className="h-5 w-40 rounded bg-ink-200 "></div>
+                  <div className="h-5 w-32 rounded bg-ink-200"></div>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-3xl border border-ink-200 bg-surface p-5 shadow-sm md:p-6">
+              <div className="h-6 w-40 rounded bg-ink-200 "></div>
+              <div className="mt-4 space-y-2 ">
+                <div className="h-4 w-full rounded bg-ink-200 "></div>
+                <div className="h-4 w-full rounded bg-ink-200 "></div>
+                <div className="h-4 w-2/3 rounded bg-ink-200 "></div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2 ">
+                <div className="h-9 w-24 rounded-full bg-ink-200"></div>
+                <div className="h-9 w-24 rounded-full bg-ink-200"></div>
+                <div className="h-9 w-24 rounded-full bg-ink-200"></div>
+              </div>
+            </section>
+
+            <section className="rounded-3xl border border-ink-200 bg-surface p-4 shadow-sm md:p-5">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <div className="h-5 w-40 rounded bg-ink-200 "></div>
+                <div className="h-6 w-28 rounded bg-ink-200 "></div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 ">
+                <div className="h-8 w-32 rounded-full bg-ink-100"></div>
+                <div className="h-8 w-36 rounded-full bg-ink-100"></div>
+                <div className="h-8 w-28 rounded-full bg-ink-100"></div>
+              </div>
+            </section>
+
+            <section className="rounded-3xl border border-ink-200 bg-surface p-3 md:p-4">
+              <div className="mb-3 h-6 w-28 rounded bg-ink-200 px-2"></div>
+              <div className="h-72 w-full rounded-2xl bg-ink-200"></div>
+            </section>
+          </div>
+          <aside className="space-y-4 lg:sticky lg:top-20 lg:self-stretch">
+            <section className="rounded-3xl border border-ink-200 bg-surface p-5 shadow-sm">
+              <div className="h-9 w-32 rounded-lg bg-ink-200 "></div>
+              <div className="mt-2 h-4 w-40 rounded bg-ink-200"></div>
+              <div className="mt-4 space-y-3 ">
+                <div className="rounded-2xl border border-ink-200 p-3">
+                  <div className="mb-3 flex items-center justify-between">
+                    <div className="h-10 w-28 rounded bg-ink-200"></div>
+                    <div className="h-10 w-28 rounded bg-ink-200"></div>
+                  </div>
+                  <div className="h-64 rounded-2xl bg-ink-100"></div>
+                </div>
+                <div className="h-24 rounded-xl bg-ink-100"></div>
+                <div className="h-11 rounded-xl bg-ink-200"></div>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </article>
+    </main>
+  );
+}
+</file>
+
+<file path="src/app/globals.css">
 @import "tailwindcss";
 @import "react-day-picker/dist/style.css";
 
@@ -13435,10 +14197,51 @@ input:disabled {
     opacity: 1;
   }
 }
-````
+</file>
 
-## File: src/auth/config.ts
-````typescript
+<file path="src/app/loading.tsx">
+export default function loading() {
+  return (
+    <main
+      role="status"
+      aria-label="Loading homepage"
+      className="mx-auto min-h-screen max-w-7xl px-4 pb-12 pt-6 md:px-8 w-full"
+    >
+      <section
+        className="animate-pulse rounded-3xl border border-ink-200 bg-surface md:p-10 "
+        aria-hidden
+      >
+        <div className="mx-auto max-w-3xl space-y-3 text-center ">
+          <div className="mx-auto h-3 w-56 rounded bg-ink-200 "></div>
+          <div className="mx-auto h-8 w-96 rounded bg-ink-200 "></div>
+          <div className="mx-auto h-4 w-80 rounded bg-ink-200 "></div>
+        </div>
+        <div className="mx-auto mt-8 h-20 max-w-5xl rounded-3xl border border-ink-200 bg-ink-100"></div>
+        <div className="mx-auto mt-6 flex max-w-5xl gap-2 overflow-hidden">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className="h-10 w-32 rounded-full bg-ink-100 "
+            ></div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {Array.from({ length: 12 }).map((_, index) => (
+          <article key={index} className="space-y-2 animate-pulse">
+            <div className="h-48 w-full rounded-2xl bg-ink-200"></div>
+            <div className="h-4 w-40 rounded bg-ink-200"></div>
+            <div className="h-3 w-32 rounded bg-ink-200"></div>
+          </article>
+        ))}
+      </section>
+    </main>
+  );
+}
+</file>
+
+<file path="src/auth/config.ts">
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -13494,10 +14297,423 @@ export const authOptions = {
     }),
   ],
 };
-````
+</file>
 
-## File: src/components/navbar.tsx
-````typescript
+<file path="src/components/listing/listing-reservation-form.tsx">
+"use client";
+
+import { format, isValid, subDays } from "date-fns";
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { useFormStatus } from "react-dom";
+import { type DateRange } from "react-day-picker";
+import { DateRangePicker } from "@/components/date-range-picker";
+import {
+  MAX_INFANTS,
+  MIN_ADULTS,
+  PROCESSING_FEE_RATE,
+} from "../../lib/booking-rules";
+import { toValidate } from "../../lib/date-utils";
+import { createReservation } from "@/app/actions";
+
+type ListingReservationFormProps = {
+  listingId: string;
+  pricePerNight: number;
+  maxGuests: number;
+  isLoggedIn: boolean;
+  bookingStatus?: "success" | "error" | null;
+  bookingMessage?: string | null;
+  initialCheckIn?: string | null;
+  initialCheckOut?: string | null;
+  initialAdults?: string | null;
+  initialChildren?: string | null;
+  initialInfants?: string | null;
+  unavailableRanges: Array<{
+    startDate: Date;
+    endDate: Date;
+  }>;
+  canBook?: boolean;
+  blockedMessage?: string;
+};
+
+export function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
+export function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className="w-full rounded-xl bg-brand-500 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-70 "
+      disabled={pending}
+    >
+      {pending ? "Confirming..." : "Reserver now"}
+    </button>
+  );
+}
+
+export function ListingReservationForm({
+  listingId,
+  pricePerNight,
+  maxGuests,
+  isLoggedIn,
+  bookingStatus = null,
+  bookingMessage = null,
+  initialCheckIn,
+  initialCheckOut,
+  initialAdults,
+  initialChildren,
+  initialInfants,
+  unavailableRanges = [],
+  canBook = true,
+  blockedMessage = "This listing is not currently bookable",
+}: ListingReservationFormProps) {
+  const formAnchorId = `booking-panel-${listingId}`;
+  const [range, setRange] = useState<DateRange | undefined>(() => {
+    const from = toValidate(initialCheckIn ?? undefined);
+    const to = toValidate(initialCheckOut ?? undefined);
+    if (!from && !to) {
+      return undefined;
+    }
+
+    return { from, to };
+  });
+
+  const [adults, setAdults] = useState(() => {
+    const parsed = Number(initialAdults ?? MIN_ADULTS);
+    const safe = Number.isFinite(parsed) ? parsed : MIN_ADULTS;
+    return clamp(safe, MIN_ADULTS, maxGuests);
+  });
+
+  const [children, setChildren] = useState(() => {
+    const parsed = Number(initialChildren ?? 0);
+    const safe = Number.isFinite(parsed) ? parsed : 0;
+    return clamp(safe, 0, Math.max(0, maxGuests - adults));
+  });
+
+  const [infants, setInfants] = useState(() => {
+    const parsed = Number(initialInfants ?? 0);
+    const safe = Number.isFinite(parsed) ? parsed : 0;
+    return clamp(
+      safe,
+      0,
+      Math.min(MAX_INFANTS, Math.max(0, maxGuests - adults - children)),
+    );
+  });
+
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const startDate = range?.from ? format(range.from, "yyyy-MM-dd") : "";
+  const endDate = range?.to ? format(range.to, "yyyy-MM-dd") : "";
+
+  const disabledRanges = useMemo(
+    () =>
+      unavailableRanges
+        .map((rangeItem) => ({
+          from: rangeItem.startDate,
+          to: subDays(rangeItem.endDate, 1),
+        }))
+        .filter(
+          (rangeItem) =>
+            isValid(rangeItem.from) &&
+            isValid(rangeItem.to) &&
+            rangeItem.to >= rangeItem.from,
+        ),
+    [unavailableRanges],
+  );
+
+  const nights = useMemo(() => {
+    if (!range?.from || !range.to) return 0;
+    const diff = range.to.getTime() - range.from.getTime();
+    const totalNights = Math.ceil(diff / (24 * 60 * 60 * 1000));
+    return totalNights > 0 ? totalNights : 0;
+  }, [range]);
+
+  const subTotal = nights * pricePerNight;
+  const processingFee = Math.round(subTotal * PROCESSING_FEE_RATE);
+  const total = subTotal + processingFee;
+
+  const loginCallbackUrl = useMemo(() => {
+    const params = new URLSearchParams();
+    if (startDate) params.set("checkIn", startDate);
+    if (endDate) params.set("checkOut", endDate);
+    params.set("adults", String(adults));
+    params.set("children", String(children));
+    params.set("infants", String(infants));
+
+    const queryString = params.toString();
+
+    return `/listings/${listingId}${queryString ? `?${queryString}` : ""}`;
+  }, [adults, children, infants, listingId, startDate, endDate]);
+
+  if (!canBook) {
+    return (
+      <div
+        id={formAnchorId}
+        className="rounded-2xl border border-ink-200 bg-surface p-5"
+      >
+        <p className="text-sm text-ink-700">{blockedMessage}</p>
+      </div>
+    );
+  }
+
+  if (!isLoggedIn) {
+    return (
+      <div
+        id={formAnchorId}
+        className="rounded-2xl border border-ink-200 bg-surface p-5"
+      >
+        <p className="text-sm text-ink-700">
+          Sign in to continue and reserver this stay.
+        </p>
+        <Link
+          href={{
+            pathname: "/login",
+            query: { callbackUrl: loginCallbackUrl },
+          }}
+          className="mt-3 inline-flex rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-600"
+        >
+          Sign in to continue
+        </Link>
+      </div>
+    );
+  }
+
+  const totalGuests = adults + children + infants;
+  const atGuestCapacity = totalGuests >= maxGuests;
+  const maxChildrenAllowed = Math.max(0, maxGuests - adults - infants);
+  const maxInfantsByCapacity = Math.max(0, maxGuests - adults - children);
+
+  return (
+    <form
+      id={formAnchorId}
+      action={createReservation}
+      className="space-y-4 rounded-2xl border border-ink-200 bg-surface p-5"
+    >
+      {bookingStatus === "success" ? (
+        <p
+          aria-live="polite"
+          className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-700"
+        >
+          Booking confirmed. You can manage it from your booking page.
+        </p>
+      ) : null}
+
+      {bookingStatus === "error" ? (
+        <p
+          aria-live="assertive"
+          className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700"
+        >
+          {bookingMessage ??
+            "Unable to complete reservation. Please try again."}
+        </p>
+      ) : null}
+
+      <input type="hidden" name="listingId" value={listingId} />
+      <input type="hidden" name="startDate" value={startDate} />
+      <input type="hidden" name="endDate" value={endDate} />
+      <input type="hidden" name="adults" value={adults} />
+      <input type="hidden" name="children" value={children} />
+      <input type="hidden" name="infants" value={infants} />
+
+      <button
+        type="button"
+        className="w-full space-y-3 rounded-2xl border border-ink-200 p-3 text-left transition hover:border-ink-300 hover:bg-ink-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300"
+        onClick={() => setIsCalendarOpen(true)}
+        aria-label="Open day picker panel"
+      >
+        <div className="flex items-center justify-between gap-3">
+          <div className="">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-500">
+              Check-in
+            </p>
+            <p className="mt-1 text-sm font-semibold text-ink-900 ">
+              {range?.from ? format(range.from, "dd-MM-yyyy") : "Add date"}
+            </p>
+          </div>
+          <div className="h-8 w-px bg-ink-200"></div>
+          <div className="text-right">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-500">
+              Check-out
+            </p>
+            <p className="mt-1 text-sm font-semibold text-ink-900 ">
+              {range?.to ? format(range.to, "dd-MM-yyyy") : "Add date"}
+            </p>
+          </div>
+        </div>
+      </button>
+
+      <div className="space-y-3 rounded-2xl border border-ink-200 bg-surface-muted p-3">
+        <div className="flex items-center justify-between">
+          <div className="">
+            <p className="text-xs font-semibold text-ink-900">Guests</p>
+            <p className="text-xs text-ink-500">
+              {totalGuests} guest{totalGuests > 1 ? "s" : ""} . Max {maxGuests}
+            </p>
+          </div>
+        </div>
+        <div className="space-y-3 border-t border-ink-200 pt-3 text-sm ">
+          <div className="flex items-center justify-between">
+            <div className="">
+              <p className="font-medium text-ink-900">Adults</p>
+              <p className="text-xs text-ink-500">Ages 13 or above</p>
+            </div>
+            <div className="flex items-center gap-3 ">
+              <button
+                type="button"
+                className="h-8 w-8 items-center justify-center rounded-full border border-ink-300 text-ink-700 disabled:opacity-40"
+                disabled={adults <= MIN_ADULTS}
+                onClick={() =>
+                  setAdults((prev) => Math.max(MIN_ADULTS, prev - 1))
+                }
+              >
+                -
+              </button>
+
+              <span className="w-5 text-center">{adults}</span>
+
+              <button
+                type="button"
+                className="h-8 w-8 items-center justify-center rounded-full border border-ink-300 text-ink-700 disabled:opacity-40"
+                disabled={atGuestCapacity}
+                onClick={() =>
+                  setAdults((prev) => Math.min(maxGuests, prev + 1))
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="">
+              <p className="font-medium text-ink-900">Children</p>
+              <p className="text-xs text-ink-500">Ages 2 - 12</p>
+            </div>
+            <div className="flex items-center gap-3 ">
+              <button
+                type="button"
+                className="h-8 w-8 items-center justify-center rounded-full border border-ink-300 text-ink-700 disabled:opacity-40"
+                disabled={children <= 0}
+                onClick={() => setChildren((prev) => Math.max(0, prev - 1))}
+              >
+                -
+              </button>
+
+              <span className="w-5 text-center">{children}</span>
+
+              <button
+                type="button"
+                className="h-8 w-8 items-center justify-center rounded-full border border-ink-300 text-ink-700 disabled:opacity-40"
+                disabled={atGuestCapacity}
+                onClick={() =>
+                  setChildren((prev) => Math.min(maxChildrenAllowed, prev + 1))
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="">
+              <p className="font-medium text-ink-900">Infants</p>
+              <p className="text-xs text-ink-500">Ages under 2</p>
+            </div>
+            <div className="flex items-center gap-3 ">
+              <button
+                type="button"
+                className="h-8 w-8 items-center justify-center rounded-full border border-ink-300 text-ink-700 disabled:opacity-40"
+                disabled={infants <= 0}
+                onClick={() => setInfants((prev) => Math.max(0, prev - 1))}
+              >
+                -
+              </button>
+
+              <span className="w-5 text-center">{infants}</span>
+
+              <button
+                type="button"
+                className="h-8 w-8 items-center justify-center rounded-full border border-ink-300 text-ink-700 disabled:opacity-40"
+                disabled={atGuestCapacity || infants >= MAX_INFANTS}
+                onClick={() =>
+                  setInfants((prev) =>
+                    Math.min(MAX_INFANTS, maxInfantsByCapacity, prev + 1),
+                  )
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {!range ? (
+        <p className="text-xs text-ink-500">
+          Reserved dates are unavailable. Choose check-in and check-out dates
+          and then confirm traveler count to continue.
+        </p>
+      ) : null}
+
+      {isCalendarOpen ? (
+        <div className="fixed inset-0 z-30 flex items-center justify-center bg-ink-900/30 backdrop-blur-[1px] ">
+          <div className="w-full max-w-md rounded-3xl border border-ink-200 bg-surface p-4 shadow-xl md:p-5 ">
+            <div className="mb-3 flex items-center justify-between">
+              <div className="">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">
+                  Select dates
+                </p>
+                <p className="mt-1 text-sm text-ink-600">
+                  Select your preferred check-in and check-out dates.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="rounded-full border border-ink-300 px-3 py-1 text-xs font-medium text-ink-700 hover:bg-ink-100"
+                onClick={() => setIsCalendarOpen(false)}
+              >
+                Done
+              </button>
+            </div>
+
+            <div className="rounded-2xl border border-ink-100 bg-surface-muted px-2 pb-3 pt-2 ">
+              <DateRangePicker
+                selected={range}
+                onSelect={setRange}
+                disabled={disabledRanges}
+                numberOfMonths={1}
+                className="hero-daypicker mx-auto w-full max-w-full"
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      <div className="rounded-xl bg-ink-50 p-3 text-sm text-ink-700">
+        <div className="flex items-center justify-between">
+          <span className="">
+            ${pricePerNight} x {nights || 0} nights
+          </span>
+          <span className="">${subTotal}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="">Processing fee (8%)</span>
+          <span className="">${processingFee}</span>
+        </div>
+        <div className="mt-2 flex items-center justify-between border-t border-ink-200 pt-2 text-base font-semibold text-ink-900 ">
+          <span className="">Total</span>
+          <span className="">${total}</span>
+        </div>
+      </div>
+
+      <SubmitButton />
+    </form>
+  );
+}
+</file>
+
+<file path="src/components/navbar.tsx">
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { House } from "lucide-react";
@@ -13541,10 +14757,9 @@ export async function Navbar() {
     </header>
   );
 }
-````
+</file>
 
-## File: src/components/register-form.tsx
-````typescript
+<file path="src/components/register-form.tsx">
 "use client";
 
 import { useState } from "react";
@@ -13623,10 +14838,22 @@ export function RegisterForm({ action }: RegisterFormProps) {
     </>
   );
 }
-````
+</file>
 
-## File: .gitignore
-````
+<file path="src/lib/ui-classes.ts">
+export const uiShell = {
+  pageContainer:
+    "mx-auto min-h-screen max-w-7xl w-full px-4 pt-5 md:px-8 md:pt-8",
+  sectionCard:
+    "rounded-3xl border border-ink-200 bg-surface p-5 shadow-sm md:p-7",
+  panelCard: "rounded-2xl border border-ink-200 bg-surface p-4 shadow-sm",
+  softPanel: "rounded-2xl border border-ink-200 bg-surface-muted p-3",
+  emptyState:
+    "rounded-2xl border border-dashed border-ink-300 bg-ink-50/40 p-6 text-center",
+} as const;
+</file>
+
+<file path=".gitignore">
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -13670,10 +14897,572 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
-````
+</file>
 
-## File: next.config.ts
-````typescript
+<file path="prisma.config.ts">
+// This file was generated by Prisma, and assumes you have installed the following:
+// npm install --save-dev prisma dotenv
+import "dotenv/config";
+import { defineConfig } from "prisma/config";
+
+const prismaUrl = process.env["DATABASE_URL"] || process.env["DIRECT_URL"];
+
+if (!prismaUrl) {
+  throw new Error(
+    "DATABASE_URL or DIRECT_URL environment variable is not set in .env file for Prisma CLI commands.",
+  );
+}
+
+export default defineConfig({
+  schema: ".windsurf/prisma/schema.prisma",
+  migrations: {
+    path: ".windsurf/prisma/migrations",
+    seed: ".windsurf/tsx prisma/seed.ts",
+  },
+  datasource: {
+    url: prismaUrl,
+  },
+});
+</file>
+
+<file path="src/app/bookings/page.tsx">
+import { ReservationCard } from "@/components/bookings/reservation-card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { PageIntro } from "@/components/ui/page-intro";
+import { StatCard } from "@/components/ui/stat-card";
+import { requireUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { uiShell } from "@/lib/ui-classes";
+import { CalendarCheck2, CalendarX2, Wallet } from "lucide-react";
+
+type BookingsPageProps = {
+  searchParams: Promise<{
+    message?: string;
+  }>;
+};
+
+export default async function BookingsPage({
+  searchParams,
+}: BookingsPageProps) {
+  const user = await requireUser();
+  const query = await searchParams;
+  const reservations = await prisma.reservation.findMany({
+    where: {
+      userId: user.id,
+    },
+    include: {
+      listing: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const today = new Date();
+  const activeBookings = reservations.filter(
+    (reservation) => reservation.endDate >= today,
+  );
+  const totalCharged = reservations.reduce(
+    (sum, reservation) => reservation.totalPrice + sum,
+    0,
+  );
+  return (
+    <main className={uiShell.pageContainer}>
+      <PageIntro
+        badge="Your Bookings"
+        icon={CalendarCheck2}
+        title="Your Reservations"
+        description="Track upcoming your stays, review completed trips, and manage active bookings"
+      ></PageIntro>
+      {query.message ? (
+        <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700 ">
+          {query.message}
+        </p>
+      ) : null}
+
+      <section className="mt-5 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <StatCard label="Total bookings" value={reservations.length} />
+        <StatCard label="Active bookings" value={activeBookings.length} />
+        <StatCard label="Total spend" value={`${totalCharged}`} icon={Wallet} />
+      </section>
+
+      <section className="mt-6 space-y-3 md:space-y-4">
+        {reservations.length === 0 ? (
+          <EmptyState
+            icon={CalendarX2}
+            title="No reservation yet"
+            description="Reserve your first stay and it will appear here."
+            actionHref="/"
+            actionLabel="Browser home."
+          />
+        ) : (
+          reservations.map((reservation) => (
+            <ReservationCard
+              key={reservation.id}
+              reservation={reservation}
+              today={today}
+            />
+          ))
+        )}
+      </section>
+    </main>
+  );
+}
+</file>
+
+<file path="src/components/host/host-listing-item.tsx">
+import { Bath, BedDouble, MapPin, Pencil, Trash2, Users } from "lucide-react";
+import Link from "next/link";
+import { SafeImage } from "../safe-image";
+import { deleteListing } from "@/app/actions";
+
+type HostListingItemProps = {
+  listing: {
+    id: string;
+    title: string;
+    description: string;
+    locationValue: string;
+    imageSrc: string;
+    pricePerNight: number;
+    category: string;
+    guestCount: number;
+    roomCount: number;
+    bathroomCount: number;
+  };
+  index: number;
+};
+
+export function HostListingItem({ listing, index }: HostListingItemProps) {
+  return (
+    <article
+      className="host-listing-card rounded-3xl border border-ink-200 bg-surface p-4 shadow-sm transition hover:shadow-md md:p-5 "
+      style={{ animationDelay: `${Math.min(index * 70, 420)}ms` }}
+    >
+      <div className="grid grid-cols-[160px_1fr] gap-4 md:grid-cols-[220px_1fr] md:gap-5">
+        <Link
+          href={`/listings/${listing.id}`}
+          className="overflow-hidden rounded-2xl border border-ink-200 "
+        >
+          <SafeImage
+            src={listing.imageSrc}
+            alt={listing.title}
+            width={640}
+            height={420}
+            className="h-full min-h-44 w-full object-cover"
+          ></SafeImage>
+        </Link>
+        <Link href={`/listings/${listing.id}`} className="">
+          <p className="inline-flex rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold">
+            {listing.category}
+          </p>
+          <h3 className="mt-2 text-lg font-semibold leading-tight text-ink-900 ">
+            {listing.title}
+          </h3>
+          <p className="mt-2 inline-flex items-center gap-1.5 text-[0.8rem] text-ink-600 md:text-[0.9rem]">
+            <MapPin className="h-4 w-4" />
+            {listing.locationValue}
+          </p>
+
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm text-ink-600 ">
+            <span className="inline-flex items-center gap-1.5">
+              <Users className="h-3.5 w-3.5 text-ink-500" />
+              {listing.guestCount}
+            </span>
+            <span className="h-1 w-1 rounded-full bg-ink-300 aria-hidden"></span>
+            <span className="inline-flex items-center gap-1.5">
+              <BedDouble className="h-3.5 w-3.5 text-ink-500" />
+              {listing.roomCount}
+            </span>
+            <span className="h-1 w-1 rounded-full bg-ink-300 aria-hidden"></span>
+            <span className="inline-flex items-center gap-1.5">
+              <Bath className="h-3.5 w-3.5 text-ink-500" />
+              {listing.bathroomCount}
+            </span>
+          </div>
+        </Link>
+      </div>
+      <div className="">
+        <p className="line-clamp-2 text-sm leading-relaxed text-ink-600 md:col-span-2">
+          {listing.description}
+        </p>
+        <div className="flex items-end justify-between border-t border-ink-200 pt-3 md:col-span-2 ">
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/host/listings/${listing.id}/edit`}
+              className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-ink-700 transition hover:bg-ink-100"
+            >
+              <Pencil className="h-4 w-4" />
+              Edit
+            </Link>
+
+            <form className="" action={deleteListing}>
+              <input type="hidden" name="listingId" value={listing.id} />
+              <button className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 ">
+                <Trash2 className="h-4 w-4 " />
+                Delete
+              </button>
+            </form>
+          </div>
+
+          <p className="text-lg font-semibold text-ink-900 ">
+            ${listing.pricePerNight}
+            <span className="ml-1 text-sm font-medium text-ink-600">
+              / night
+            </span>
+          </p>
+        </div>
+      </div>
+    </article>
+  );
+}
+</file>
+
+<file path="src/components/listing-form.tsx">
+"use client";
+
+import { ImageUp } from "lucide-react";
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
+import { SafeImage } from "./safe-image";
+import { useUploadThing } from "@/lib/uploadthing";
+
+type ListingFormProps = {
+  action: (formData: FormData) => Promise<void>;
+  submitLabel?: string;
+  submittingLabel?: string;
+  initialValue?: {
+    title: string;
+    category: string;
+    description: string;
+    locationValue: string;
+    pricePerNight: number;
+    guestCount: number;
+    roomCount: number;
+    bathroomCount: number;
+    imageSrc: string;
+    imageGallery: string[];
+  };
+};
+
+type FieldInputProps = {
+  name: string;
+  label: string;
+  placeholder: string;
+  type?: string;
+  min?: number;
+  defaultValue?: string | number;
+};
+
+type FieldTextareaProps = {
+  name: string;
+  label: string;
+  placeholder: string;
+  className?: string;
+  defaultValue?: string;
+};
+
+export function FieldTextarea({
+  name,
+  label,
+  placeholder,
+  className,
+  defaultValue,
+}: FieldTextareaProps) {
+  return (
+    <label className={`grid gap-1.5 ${className ?? ""}`}>
+      <span className="text-xs font-medium text-ink-600 ">{label}</span>
+      <textarea
+        name={name}
+        required
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        rows={4}
+        className="rounded-xl border border-ink-300 px-3 py-2 text-sm text-ink-900 outline-none transition placeholder:text-ink-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
+      ></textarea>
+    </label>
+  );
+}
+
+export function FieldInput({
+  name,
+  label,
+  placeholder,
+  type = "text",
+  min,
+  defaultValue,
+}: FieldInputProps) {
+  return (
+    <label className="grid gap-1.5">
+      <span className="text-xs font-medium text-ink-600 ">{label}</span>
+      <input
+        name={name}
+        required
+        type={type}
+        min={min}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        className="rounded-xl border border-ink-300 px-3 py-2 text-sm text-ink-900 outline-none transition placeholder:text-ink-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
+      />
+    </label>
+  );
+}
+
+export function SubmitButton({
+  submitLabel,
+  submittingLabel,
+}: {
+  submitLabel: string;
+  submittingLabel: string;
+}) {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-70 md:col-span-2"
+    >
+      {pending ? submittingLabel : submitLabel}
+    </button>
+  );
+}
+
+export function ListingForm({
+  action,
+  submitLabel = "Publish listing",
+  submittingLabel = "Publishing...",
+  initialValue,
+}: ListingFormProps) {
+  const [galleryImages, setGalleryImages] = useState<string[]>(
+    initialValue
+      ? Array.from(
+          new Set(
+            [
+              ...(initialValue.imageGallery ?? []),
+              ...(initialValue.imageSrc ? [initialValue.imageSrc] : []),
+            ].filter(Boolean),
+          ),
+        ).slice(0, 10)
+      : [],
+  );
+
+  const [uploadError, setUploadError] = useState("");
+  const [isDragActive, setIsDragActive] = useState(false);
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    onClientUploadComplete: (res) => {
+      const urls = (res ?? [])
+        .map((item) => item?.ufsUrl || item?.url || "")
+        .filter(Boolean);
+      setGalleryImages((prev) =>
+        Array.from(new Set([...prev, ...urls])).slice(0, 10),
+      );
+      setUploadError("");
+    },
+    onUploadError: (error) => {
+      setUploadError(error.message);
+    },
+  });
+  async function handleFileUpload(files: FileList | File[] | null) {
+    const list = files ? Array.from(files) : [];
+    if (list.length === 0) return;
+    if (galleryImages.length + list.length > 10) {
+      setUploadError("You can upload up to 10 images per listing.");
+      return;
+    }
+    if (list.some((file) => !file.type.startsWith("image/"))) {
+      setUploadError("Please upload an image file.");
+      return;
+    }
+    if (list.some((file) => file.size > 4 * 1024 * 1024)) {
+      setUploadError("Image must be 4MB or smaller.");
+      return;
+    }
+    setUploadError("");
+    await startUpload(list.slice(0, 10 - galleryImages.length));
+  }
+
+  function removeImage(imageUrl: string) {
+    setGalleryImages((prev) => prev.filter((image) => image !== imageUrl));
+  }
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    if (galleryImages.length === 0) {
+      event.preventDefault();
+      setUploadError(
+        "Upload at least one image. The first image is used as the cover photo.",
+      );
+    }
+  }
+
+  return (
+    <form
+      action={action}
+      onSubmit={handleSubmit}
+      className="mt-4 grid gap-3 md:grid-cols-2"
+    >
+      <FieldInput
+        name="title"
+        label="Title"
+        placeholder="Stylish loft near downtown"
+        defaultValue={initialValue?.title}
+      />
+      <FieldInput
+        name="category"
+        label="Category"
+        placeholder="Apart, villa, cabin, ....."
+        defaultValue={initialValue?.category}
+      />
+
+      <div className="rounded-2xl border border-ink-200 bg-surface-muted/40 p-3 md:col-span-2 md:p-4">
+        <p className="mb-2 text-sm font-medium text-ink-800 ">
+          Listing Gallery
+        </p>
+        <label
+          className={`flex h-36 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed px-4 text-center transition ${isDragActive ? "border-brand-400 bg-brand-50/40 " : "border-ink-300 bg-surface hover:border-brand-300"}`}
+          onDragOver={(event) => {
+            event.preventDefault();
+            setIsDragActive(true);
+          }}
+          onDragLeave={() => setIsDragActive(false)}
+          onDrop={(event) => {
+            event.preventDefault();
+            setIsDragActive(false);
+            void handleFileUpload(event.dataTransfer.files);
+          }}
+        >
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            className="hidden"
+            onChange={(event) => {
+              void handleFileUpload(event.target.files);
+              event.currentTarget.value = "";
+            }}
+          />
+          <ImageUp className="h-6 w-6 text-brand-500" />
+          <p className="text-sm font-semibold text-ink-800 ">
+            Drag and drop images, or click to upload.
+          </p>
+          <p className="text-xs text-ink-500">
+            Up to 10 images, each max 4MB. {isUploading ? "Uploading..." : ""}
+          </p>
+        </label>
+
+        <input
+          name="imageSrc"
+          key={`imageSrc-${galleryImages[0] ?? "none"}`}
+          defaultValue={galleryImages[0] ?? ""}
+          type="hidden"
+          className=""
+        />
+
+        <input
+          name="imageGallery"
+          defaultValue={JSON.stringify(galleryImages)}
+          key={`imageGallery-${JSON.stringify(galleryImages)}`}
+          type="hidden"
+          className=""
+        />
+
+        {galleryImages.length > 0 ? (
+          <div className="mt-3 space-y-2 ">
+            <p className="text-sm text-emerald-700">
+              {galleryImages.length} image{galleryImages.length > 1 ? "s" : ""}{" "}
+              ready.
+            </p>
+            <div className="hide-scrollbar flex gap-2 overflow-x-auto pb-1">
+              {galleryImages.map((image, index) => (
+                <div className="relative" key={index}>
+                  <SafeImage
+                    src={image}
+                    alt={`Uploaded listing image ${index + 1}`}
+                    width={240}
+                    height={160}
+                    className="h-16 w-24 rounded-lg border border-ink-200 object-cover"
+                  />
+                  <button
+                    className="absolute -right-1.5 -top-1.5 rounded-full border border-ink-200 bg-surface px-1.5 py-0.5 text-[10px] font-semibold text-ink-700 hover:bg-ink-100"
+                    aria-label={`Remove image ${index + 1}`}
+                    type="button"
+                    onClick={() => removeImage(image)}
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-ink-600">
+            Upload at least one image. The first image is used as the cover
+            photo.
+          </p>
+        )}
+
+        {uploadError ? (
+          <p className="mt-2 text-sm text-red-600 ">{uploadError}</p>
+        ) : null}
+      </div>
+
+      <FieldTextarea
+        name="description"
+        label="Description"
+        placeholder="Describe what guest can expect from this stay."
+        defaultValue={initialValue?.description}
+        className="md:col-span-2"
+      />
+
+      <FieldInput
+        name="locationValue"
+        label="Location"
+        placeholder="e.g. Miami, United States"
+        defaultValue={initialValue?.locationValue}
+      />
+
+      <FieldInput
+        name="pricePerNight"
+        label="Price per night"
+        type="number"
+        min={10}
+        placeholder="250"
+        defaultValue={initialValue?.pricePerNight}
+      />
+
+      <FieldInput
+        name="guestCount"
+        label="Guests"
+        type="number"
+        min={1}
+        placeholder="4"
+        defaultValue={initialValue?.guestCount}
+      />
+      <FieldInput
+        name="roomCount"
+        label="Rooms"
+        type="number"
+        min={1}
+        placeholder="4"
+        defaultValue={initialValue?.roomCount}
+      />
+      <FieldInput
+        name="bathroomCount"
+        label="Bathrooms"
+        type="number"
+        min={1}
+        placeholder="4"
+        defaultValue={initialValue?.bathroomCount}
+      />
+
+      <SubmitButton
+        submitLabel={submitLabel}
+        submittingLabel={submittingLabel}
+      />
+    </form>
+  );
+}
+</file>
+
+<file path="next.config.ts">
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -13689,7 +15478,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "*.utfs.sh",
+        hostname: "*.ufs.sh",
       },
       {
         protocol: "https",
@@ -13708,17 +15497,16 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-````
+</file>
 
-## File: package.json
-````json
+<file path="package.json">
 {
   "name": "airbnb-clone",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "prisma generate && next dev",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -13761,37 +15549,115 @@ export default nextConfig;
     "typescript": "^5"
   }
 }
-````
+</file>
 
-## File: prisma.config.ts
-````typescript
-// This file was generated by Prisma, and assumes you have installed the following:
-// npm install --save-dev prisma dotenv
-import "dotenv/config";
-import { defineConfig } from "prisma/config";
+<file path="src/app/host/page.tsx">
+import { HostSection } from "@/components/host/host-section";
+import { ListingForm } from "@/components/listing-form";
+import { EmptyState } from "@/components/ui/empty-state";
+import { PageIntro } from "@/components/ui/page-intro";
+import { StatCard } from "@/components/ui/stat-card";
+import { requireUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { uiShell } from "@/lib/ui-classes";
+import { BadgeCheck, Building2, DollarSign, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { createListing } from "../actions";
+import { HostListingItem } from "@/components/host/host-listing-item";
 
-const prismaUrl = process.env["DATABASE_URL"] || process.env["DIRECT_URL"];
+export default async function HostDashboardPage() {
+  const user = await requireUser();
+  const listings = await prisma.listing.findMany({
+    where: {
+      userId: user.id,
+    },
+    orderBy: { createdAt: "desc" },
+  });
 
-if (!prismaUrl) {
-  throw new Error(
-    "DATABASE_URL or DIRECT_URL environment variable is not set in .env file for Prisma CLI commands.",
+  const listingCount = listings.length;
+  const avgNightlyRate = listingCount
+    ? Math.round(
+        listings.reduce((total, listing) => total + listing.pricePerNight, 0) /
+          listingCount,
+      )
+    : 0;
+  const totalCapacity = listings.reduce(
+    (total, listing) => total + listing.guestCount,
+    0,
+  );
+
+  return (
+    <main className={uiShell.pageContainer}>
+      <PageIntro
+        badge="Host Workspace"
+        icon={Sparkles}
+        title={`Welcome back, ${user.name ?? "Host"}`}
+        description="Manage your homes, publish new listings, and keep every stay ready for guests."
+      />
+
+      <section className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <StatCard
+          label="Active listings"
+          value={listingCount}
+          icon={Building2}
+        ></StatCard>
+        <StatCard
+          label="Average Nightly Rate"
+          value={`$${avgNightlyRate}`}
+          icon={DollarSign}
+        ></StatCard>
+        <StatCard
+          label="Total guests capacity"
+          value={totalCapacity}
+          icon={BadgeCheck}
+        ></StatCard>
+      </section>
+
+      <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-[1.1fr_1fr]">
+        {/* HostSession */}
+        <HostSection
+          title="Create a listing"
+          description="Add a professionally presented listing with photos, pricing and guest details."
+        >
+          <ListingForm action={createListing} />
+        </HostSection>
+
+        <HostSection
+          title="Your listings"
+          description="Update, review or remove homes from your hosting portfolio."
+          action={
+            <Link
+              href={"/"}
+              className="rounded-full border border-ink-300 px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:bg-ink-50"
+            >
+              View guest experience
+            </Link>
+          }
+        >
+          <div className="space-y-3">
+            {listings.length === 0 ? (
+              <EmptyState
+                title="No listing yet."
+                description="Fill in the form to publish your first property."
+              ></EmptyState>
+            ) : (
+              listings.map((listing, index) => (
+                <HostListingItem
+                  key={listing.id}
+                  listing={listing}
+                  index={index}
+                />
+              ))
+            )}
+          </div>
+        </HostSection>
+      </div>
+    </main>
   );
 }
+</file>
 
-export default defineConfig({
-  schema: ".windsurf/prisma/schema.prisma",
-  migrations: {
-    path: ".windsurf/prisma/migrations",
-    seed: ".windsurf/tsx prisma/seed.ts",
-  },
-  datasource: {
-    url: prismaUrl,
-  },
-});
-````
-
-## File: src/app/layout.tsx
-````typescript
+<file path="src/app/layout.tsx">
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
@@ -13819,10 +15685,534 @@ export default function RootLayout({
     </html>
   );
 }
-````
+</file>
 
-## File: src/app/page.tsx
-````typescript
+<file path="src/app/actions.ts">
+"use server";
+
+import { requireUser } from "@/lib/auth";
+import {
+  MAX_INFANTS,
+  MIN_ADULTS,
+  PROCESSING_FEE_RATE,
+} from "@/lib/booking-rules";
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+
+/**
+ * Schema for register
+ */
+const registerSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+const reservationSchema = z.object({
+  listingId: z
+    .string()
+    .min(1)
+    .max(64)
+    .regex(/^[a-zA-Z0-9_-]+$/),
+  startDate: z.string(),
+  endDate: z.string(),
+  adults: z.coerce.number().int().min(MIN_ADULTS),
+  children: z.coerce.number().min(0),
+  infants: z.coerce.number().min(0).max(MAX_INFANTS),
+});
+
+const listingSchema = z.object({
+  title: z.string().min(5),
+  description: z.string().min(10),
+  imageSrc: z.string().url(),
+  imageGallery: z.array(z.string().url()).min(1).max(10),
+  category: z.string().min(2),
+  roomCount: z.coerce.number().int().min(1),
+  bathroomCount: z.coerce.number().int().min(1),
+  guestCount: z.coerce.number().int().min(1),
+  locationValue: z.string().min(2),
+  pricePerNight: z.coerce.number().int().min(10),
+});
+
+export async function registerUser(formData: FormData) {
+  const parsed = registerSchema.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  if (!parsed.success) {
+    throw new Error("Invalid registration input");
+  }
+
+  /**
+   * Prevent duplicate email
+   */
+  const existing = await prisma.user.findUnique({
+    where: {
+      email: parsed.data.email,
+    },
+  });
+
+  if (existing) {
+    throw new Error("Email has already existed");
+  }
+
+  const hashedPassword = await bcrypt.hash(parsed.data.password, 12);
+
+  await prisma.user.create({
+    data: {
+      name: parsed.data.name,
+      email: parsed.data.email,
+      hashedPassword: hashedPassword,
+    },
+  });
+
+  redirect("/login");
+}
+
+function redirectWithBookingError(listingId: string, message: string) {
+  redirect(
+    `/listings/${listingId}?booking-error&message=${encodeURIComponent(message)}`,
+  );
+}
+
+export async function createReservation(formData: FormData) {
+  const user = await requireUser();
+  const fallbackListingId = String(formData.get("listingId") ?? "");
+  const parsed = reservationSchema.safeParse({
+    listingId: formData.get("listingId"),
+    startDate: formData.get("startDate"),
+    endDate: formData.get("endDate"),
+    adults: formData.get("adults"),
+    children: formData.get("children"),
+    infants: formData.get("infants"),
+  });
+
+  if (!parsed.success) {
+    if (fallbackListingId) {
+      redirectWithBookingError(
+        fallbackListingId,
+        "Please review your reservation details and try again.",
+      );
+    }
+    redirect(
+      "/bookings?message=Please review your reservation details and try again.",
+    );
+  }
+
+  const startDate = new Date(parsed.data!.startDate);
+  const endDate = new Date(parsed.data!.endDate);
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+    redirectWithBookingError(
+      parsed.data!.listingId,
+      "Please select valid check-in and check-out dates",
+    );
+  }
+
+  if (endDate <= startDate) {
+    redirectWithBookingError(
+      parsed.data!.listingId,
+      "Please check-out must be after check-in.",
+    );
+  }
+
+  const listing = await prisma.listing.findUnique({
+    where: {
+      id: parsed.data!.listingId,
+    },
+  });
+
+  if (!listing) {
+    redirectWithBookingError(parsed.data!.listingId, "Listing not found.");
+  }
+
+  const totalGuests =
+    parsed.data!.adults + parsed.data!.children + parsed.data!.infants;
+
+  if (totalGuests > listing!.guestCount) {
+    redirectWithBookingError(
+      parsed.data!.listingId,
+      `This listing allows up to ${listing?.guestCount} guests. Please adjust your guest count.`,
+    );
+  }
+
+  const overlappingReservation = await prisma.reservation.findFirst({
+    where: {
+      listingId: listing!.id,
+      startDate: { lt: endDate },
+      endDate: { gt: startDate },
+    },
+  });
+
+  if (overlappingReservation) {
+    redirectWithBookingError(
+      listing!.id,
+      "Selected dates are already booked. Please choose difference dates.",
+    );
+  }
+
+  const nights = Math.ceil(
+    (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000),
+  );
+  const subTotal = nights * listing!.pricePerNight;
+  const processingFee = Math.round(subTotal * PROCESSING_FEE_RATE);
+  const totalPrice = subTotal + processingFee;
+
+  await prisma.reservation.create({
+    data: {
+      userId: user.id,
+      listingId: listing!.id,
+      startDate: startDate,
+      endDate: endDate,
+      totalPrice: totalPrice,
+    },
+  });
+
+  revalidatePath("/bookings");
+  revalidatePath(`/listings/${listing!.id}`);
+  revalidatePath("/host");
+  redirect(`/listings/${listing!.id}?booking=success`);
+}
+
+export async function cancelReservation(formData: FormData) {
+  const user = await requireUser();
+  const reservationId = String(formData.get("reservationId") ?? "");
+  if (!reservationId) {
+    throw new Error("Reservation Id is missing...");
+  }
+
+  const reservation = await prisma.reservation.findFirst({
+    where: {
+      userId: user.id,
+      id: reservationId,
+    },
+  });
+
+  if (!reservation) {
+    redirect("/bookings?message=Reservation not found!");
+  }
+
+  await prisma.reservation.delete({ where: { id: reservationId } });
+
+  revalidatePath("/bookings");
+  revalidatePath(`/listings/${reservation.listingId}`);
+  revalidatePath("/host");
+
+  redirect("/bookings?message=Reservation cancelled successfully.");
+}
+
+function parseListingGallery(rawGallery: FormDataEntryValue | null) {
+  try {
+    const value = JSON.parse(String(rawGallery ?? "[]"));
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function createListing(formData: FormData) {
+  const user = await requireUser();
+  const parsedGallery = parseListingGallery(formData.get("imageGallery"));
+  const parsed = listingSchema.safeParse({
+    title: formData.get("title"),
+    description: formData.get("description"),
+    imageSrc: formData.get("imageSrc"),
+    imageGallery: parsedGallery,
+    category: formData.get("category"),
+    roomCount: formData.get("roomCount"),
+    bathroomCount: formData.get("bathroomCount"),
+    guestCount: formData.get("guestCount"),
+    locationValue: formData.get("locationValue"),
+    pricePerNight: formData.get("pricePerNight"),
+  });
+
+  if (!parsed.success) throw new Error("Invalid listing payload.");
+  await prisma.listing.create({
+    data: {
+      ...parsed.data,
+      userId: user.id,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/host");
+}
+
+export async function deleteListing(formData: FormData) {
+  const user = await requireUser();
+  const listingId = String(formData.get("listingId") ?? "");
+  if (!listingId) throw new Error("Listing id is missing.");
+
+  await prisma.listing.deleteMany({
+    where: {
+      userId: user.id,
+      id: listingId,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/host");
+}
+
+export async function updateListing(listingId: string, formData: FormData) {
+  const user = await requireUser();
+  if (!listingId) throw new Error("Listing id is missing.");
+
+  const parsedGallery = parseListingGallery(formData.get("imageGallery"));
+  const parsed = listingSchema.safeParse({
+    title: formData.get("title"),
+    category: formData.get("category"),
+    description: formData.get("description"),
+    imageSrc: formData.get("imageSrc"),
+    imageGallery: parsedGallery,
+    roomCount: formData.get("roomCount"),
+    guestCount: formData.get("guestCount"),
+    bathroomCount: formData.get("bathroomCount"),
+    locationValue: formData.get("locationValue"),
+    pricePerNight: formData.get("pricePerNight"),
+  });
+
+  if (!parsed.success) {
+    throw new Error("Invalid listing payload.");
+  }
+
+  const updated = await prisma.listing.updateMany({
+    where: {
+      id: listingId,
+      userId: user.id,
+    },
+    data: parsed.data,
+  });
+
+  if (updated.count === 0) {
+    throw new Error("Listing not found or access denied.");
+  }
+
+  revalidatePath("/");
+  revalidatePath("/host");
+  revalidatePath(`/listings/${listingId}`);
+  redirect("/host");
+}
+</file>
+
+<file path="src/app/listings/[listingId]/page.tsx">
+import { getCurrentUser } from "@/lib/auth";
+import { fetchDemoProperties } from "@/lib/demo-properties";
+import { ListingAbout } from "@/components/listing/listing-about";
+import { ListingBookedRanges } from "@/components/listing/listing-booked-ranges";
+import { ListingBookingSidebar } from "@/components/listing/listing-booking-sidebar";
+import { ListingHeaderInfo } from "@/components/listing/listing-header-info";
+import { ListingImageGallery } from "@/components/listing/listing-image-gallery";
+import { ListingMap } from "@/components/listing/listing-map";
+import { prisma } from "@/lib/prisma";
+import { syncDemoListingById } from "@/lib/sync-demo-listings";
+import { notFound } from "next/navigation";
+
+type ListingPageProps = {
+  params: Promise<{ listingId: string }>;
+  searchParams: Promise<{
+    booking?: string;
+    message?: string;
+    checkIn?: string;
+    checkOut?: string;
+    adults?: string;
+    children?: string;
+    infants?: string;
+  }>;
+};
+
+export default async function ListingPage({
+  params,
+  searchParams,
+}: ListingPageProps) {
+  /**
+   * Code for debug loading UI
+   */
+  // if (process.env.NODE_ENV === "development") {
+  //   await new Promise((r) => setTimeout(r, 50000));
+  // }
+
+  const { listingId } = await params;
+  const query = await searchParams;
+  const demoProperties = await fetchDemoProperties();
+  const demoListingSeed = demoProperties.find(
+    (property) => property.id === listingId,
+  );
+
+  const dbListing = await prisma.listing.findUnique({
+    where: {
+      id: listingId,
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  const user = await getCurrentUser();
+  const isDemoListing = Boolean(
+    demoListingSeed && dbListing?.category === "Demo Stay",
+  );
+  const demoListing = demoListingSeed;
+  const hostRating = demoListing?.rating ?? 4.9;
+
+  if (!demoListing && !dbListing) notFound();
+  if (demoListing && !dbListing) notFound();
+
+  const listing = dbListing
+    ? {
+        id: dbListing.id,
+        title: dbListing.title,
+        description: dbListing.description,
+        locationValue: dbListing.locationValue,
+        imageSrc: dbListing.imageSrc,
+        imageGallery: dbListing.imageGallery,
+        pricePerNight: dbListing.pricePerNight,
+        category: dbListing.category,
+        guestCount: dbListing.guestCount,
+        roomCount: dbListing.roomCount,
+        bathroomCount: dbListing.bathroomCount,
+        hostname: dbListing.user?.name ?? "Verified host",
+      }
+    : {
+        id: demoListing!.id,
+        title: demoListing!.title,
+        description: `A curated demo stay in ${demoListing!.city} with a modern setup ideal for short trips and long weekends`,
+        locationValue: demoListing!.city,
+        imageSrc: demoListing!.image,
+        imageGallery: [demoListing!.image],
+        pricePerNight: demoListing!.pricePerNight,
+        category: "Demo Stay",
+        guestCount: demoListing!.maxGuests,
+        roomCount: Math.max(1, Math.round(demoListing!.maxGuests / 2)),
+        bathroomCount: Math.max(1, Math.round(demoListing!.maxGuests / 2)),
+        hostname: demoListing!.hostName,
+      };
+
+  const [reservationCount, recentReservations, userActiveReservations] =
+    await Promise.all([
+      prisma.reservation.count({
+        where: {
+          listingId: listingId,
+        },
+      }),
+      prisma.reservation.findMany({
+        where: {
+          listingId: listingId,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 6,
+      }),
+      user
+        ? prisma.reservation.findFirst({
+            where: {
+              listingId: listingId,
+              userId: user.id,
+              endDate: {
+                gte: new Date(),
+              },
+            },
+            orderBy: {
+              startDate: "asc",
+            },
+            select: { startDate: true, endDate: true },
+          })
+        : Promise.resolve(null),
+    ]);
+
+  const bookedRanges = recentReservations.map((reservation) => ({
+    startDate: reservation.startDate,
+    endDate: reservation.endDate,
+  }));
+
+  const bookingStatus =
+    query.booking === "success" || query.booking === "error"
+      ? query.booking
+      : null;
+
+  const bookingMessage = query.message ?? null;
+  const initialCheckIn = query.checkIn;
+  const initialCheckOut = query.checkOut;
+  const initialAdults = query.adults;
+  const initialChildren = query.children;
+  const initialInfants = query.infants;
+
+  return (
+    <main className="mx-auto min-h-screen max-w-7xl px-4 pb-28 pt-5 md:px-8 md:pb-10 md:pt-8">
+      <article className="space-y-6 md:space-y-8">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] lg:items-start">
+          <div className="order-2 space-y-6 md:space-y-7 lg:order-1">
+            <section className="">
+              <ListingImageGallery
+                images={
+                  listing.imageGallery.length > 0
+                    ? listing.imageGallery
+                    : [listing.imageSrc]
+                }
+                altBase={listing.title}
+              />
+
+              <ListingHeaderInfo
+                category={listing.category}
+                title={listing.title}
+                locationValue={listing.locationValue}
+                hostRating={hostRating}
+                hostName={listing.hostname}
+                pricePerNight={listing.pricePerNight}
+                listingStatusLabel={
+                  isDemoListing
+                    ? "Featured demo listing"
+                    : reservationCount > 0
+                      ? `${reservationCount} confirmed booking${reservationCount > 1 ? "s" : ""}`
+                      : "Newly listed"
+                }
+              />
+            </section>
+            <ListingAbout
+              description={listing.description}
+              guestCount={listing.guestCount}
+              roomCount={listing.roomCount}
+              bathroomCount={listing.bathroomCount}
+              hostName={listing.hostname}
+              hostRating={hostRating}
+            />
+
+            <ListingBookedRanges bookedRanges={bookedRanges} />
+            <ListingMap locationValue={listing.locationValue} />
+          </div>
+
+          <div className="order-1 lg:order-2">
+            <ListingBookingSidebar
+              bookingStatus={bookingStatus}
+              bookingMessage={bookingMessage}
+              initialAdults={initialAdults}
+              initialChildren={initialChildren}
+              initialInfants={initialInfants}
+              initialCheckIn={initialCheckIn}
+              initialCheckOut={initialCheckOut}
+              listingId={listing.id}
+              pricePerNight={listing.pricePerNight}
+              hostName={listing.hostname}
+              reservationCount={reservationCount}
+              userActiveReservation={userActiveReservations}
+              maxGuests={listing.guestCount}
+              isLoggedIn={Boolean(user)}
+              unavailableRanges={bookedRanges}
+            />
+          </div>
+        </div>
+      </article>
+    </main>
+  );
+}
+</file>
+
+<file path="src/app/page.tsx">
 import { HomeSearchBar } from "@/components/home-search-bar";
 import { SafeImage } from "@/components/safe-image";
 import { fetchDemoProperties } from "@/lib/demo-properties";
@@ -13887,10 +16277,54 @@ export function normalizeUsCity(location: string) {
   if (lower.includes("miami")) return "Miami, United States";
   if (lower.includes("chicago")) return "Chicago, United States";
   if (lower.includes("seattle")) return "Seattle, United States";
-  if (lower.includes("sans francisco")) return "Sans Francisco, United States";
+  if (lower.includes("san francisco")) return "San Francisco, United States";
   if (lower.includes("boston")) return "Boston, United States";
 
   return "United States";
+}
+
+export function buildDateRangeInclusive(start: Date, end: Date) {
+  const dates: string[] = [];
+  const cursor = new Date(start);
+  while (cursor <= end) {
+    dates.push(cursor.toISOString().slice(0, 10));
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return dates;
+}
+
+export function isRangeAvailable(
+  availableDates: string[],
+  checkIn?: string,
+  checkOut?: string,
+) {
+  if (!checkIn || !checkOut) {
+    return true;
+  }
+
+  const start = new Date(checkIn);
+  const end = new Date(checkOut);
+
+  if (
+    Number.isNaN(start.getTime()) ||
+    Number.isNaN(end.getTime()) ||
+    end < start
+  ) {
+    return true;
+  }
+
+  const requested = buildDateRangeInclusive(start, end);
+
+  if (availableDates.length === 0) {
+    return true;
+  }
+
+  const mdSet = new Set(
+    availableDates
+      .filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d))
+      .map((d) => d.slice(5)),
+  );
+  return requested.every((d) => mdSet.has(d.slice(5)));
 }
 
 export function formatDateRange(checkIn?: string, checkOut?: string) {
@@ -13907,12 +16341,48 @@ export function formatDateRange(checkIn?: string, checkOut?: string) {
 
 export function groupByCity(cards: UnifiedCard[]) {
   const grouped = new Map<string, UnifiedCard[]>();
+  for (const card of cards) {
+    const list = grouped.get(card.city) ?? [];
+    list.push(card);
+    grouped.set(card.city, list);
+  }
+
+  return Array.from(grouped.entries()).map(([city, item]) => ({ city, item }));
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
-  const hasAnyFilters = Boolean(params.category?.trim());
+
+  /**
+   * Code for debug loading UI
+   */
+  // if (process.env.NODE_ENV === "development") {
+  //   await new Promise((r) => setTimeout(r, 50000));
+  // }
+
   const demoProperties = await fetchDemoProperties();
+  const hasAnyFilters = Boolean(
+    params.location?.trim() ||
+    params.category?.trim() ||
+    params.checkIn?.trim() ||
+    params.checkOut?.trim() ||
+    params.guests?.trim() ||
+    params.adults?.trim() ||
+    params.children?.trim() ||
+    params.infants?.trim(),
+  );
+  const hasLocationSearch = Boolean(params.location?.trim());
+
+  const listingQueryParams = new URLSearchParams();
+  if (params.location) listingQueryParams.set("location", params.location);
+  if (params.checkIn) listingQueryParams.set("checkIn", params.checkIn);
+  if (params.checkOut) listingQueryParams.set("checkOut", params.checkOut);
+  if (params.adults) listingQueryParams.set("adults", params.adults);
+  if (params.children) listingQueryParams.set("children", params.children);
+  if (params.infants) listingQueryParams.set("infants", params.infants);
+  const listingQuery = listingQueryParams.toString();
+  const buildingListingHref = (listingId: string) =>
+    `/listings/${listingId}${listingQuery ? `?${listingQuery}` : ""}`;
 
   const allCard: UnifiedCard[] = [
     ...demoProperties.map((property, index) => ({
@@ -13931,23 +16401,30 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     })),
   ];
 
-  const unifiedCards = allCard.filter((card) => {
-    const byCategory = params.category
-      ? card.category.toLowerCase() === params.category.toLowerCase()
-      : true;
-
-    return byCategory;
-  });
-
-  const limitedCards = unifiedCards.slice(0, 20);
-  const defaultGridCards = limitedCards;
-
   const requestedGuests =
     Number(params.adults ?? 0) +
       Number(params.children ?? 0) +
       Number(params.infants ?? 0) ||
-    Number(params.guests) ||
+    Number(params.guests || 1) ||
     1;
+
+  const unifiedCards = allCard.filter((card) => {
+    const byLocation = params.location?.trim()
+      ? card.city.toLowerCase().includes(params.location.toLowerCase())
+      : true;
+
+    const byCategory = params.category
+      ? card.category.toLowerCase() === params.category.toLowerCase()
+      : true;
+
+    const byGuests = card.maxGuests >= requestedGuests;
+
+    return byLocation && byCategory && byGuests;
+  });
+
+  const limitedCards = unifiedCards.slice(0, 20);
+  const defaultGridCards = limitedCards;
+  const groupedCards = groupByCity(limitedCards).slice(0, 8);
 
   const adults = Number(params.adults ?? 0) || 0;
   const children = Number(params.children ?? 0) || 0;
@@ -13973,7 +16450,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       : `${requestedGuests} guest${requestedGuests > 1 ? "s" : ""}`;
 
   return (
-    <main className="mx-auto min-h-screen max-w-7xl pb-14 pt-8 px-4 md:px-8 md:pb-12 md:pt-6">
+    <main className="mx-auto min-h- max-w-full lg:max-w-7xl pb-14 pt-8 px-4 md:px-8 md:pb-12 md:pt-6">
       <section className="rounded-3xl border border-ink-200 bg-gradient-to-br from-brand-50 via-surface to-ink-50 p-6 md:p-10">
         <div className="mx-auto max-w-[50.5rem] text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-600 ">
@@ -13991,7 +16468,15 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
         <div className="mx-auto mt-7 max-w-[57.5rem] md:mt-8">
           {/* Home search bar */}
-          <HomeSearchBar />
+          <HomeSearchBar
+            initialAdults={params.adults}
+            initialCheckIn={params.checkIn}
+            initialCheckOut={params.checkOut}
+            initialChildren={params.children}
+            initialGuests={params.guests}
+            initialInfants={params.infants}
+            initialLocation={params.location}
+          />
         </div>
         <div className="mx-auto mt-6 flex max-w-[57.5rem] items-start justify-between gap-3">
           <div className="hide-scrollbar flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
@@ -14001,7 +16486,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               return (
                 <Link
                   key={item.label}
-                  href={`/?category=${encodeURIComponent(item.label)}`}
+                  href={`/?category=${encodeURIComponent(item.label)}${params.location ? `&location=${encodeURIComponent(params.location)}` : ""}${params.guests ? `&guests=${encodeURIComponent(params.guests)}` : ""}${params.adults ? `&adults=${encodeURIComponent(params.adults)}` : ""}${params.children ? `&children=${encodeURIComponent(params.children)}` : ""}${params.infants ? `&infants=${encodeURIComponent(params.infants)}` : ""}${params.checkIn ? `&checkIn=${encodeURIComponent(params.checkIn)}` : ""}${params.checkOut ? `&checkOut=${encodeURIComponent(params.checkOut)}` : ""}`}
                   className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${isActive ? "border-ink-900 bg-ink-900 text-white" : "border-ink-300 text-ink-700 hover:bg-ink-100"}`}
                 >
                   <Icon className="h-4 w-4" />
@@ -14030,48 +16515,122 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </p>
       </section>
 
-      <section className="mt-10 md:mt-8 ">
-        <div className="mb-4 flex items-center gap-2">
-          <h2 className="text-2xl font-semibold tracking-tight text-ink-900">
-            Top picks across the United States
-          </h2>
-          <ChevronRight className="h-5 w-5 text-ink-700 " />
-        </div>
+      {unifiedCards.length === 0 ? (
+        <section className="mt-10 md:mt-8">
+          <p className="text-ink-600">
+            No stays match your current filter. Try adjusting destination,
+            dates, or guest count.
+          </p>
+        </section>
+      ) : (
+        <>
+          {hasLocationSearch ? (
+            <section className="mt-10 space-y-10 md:mt-8 md:space-y-9">
+              {groupedCards.map((group) => (
+                <>
+                  <div
+                    key={group.city}
+                    className="mb-4 flex items-center gap-2"
+                  >
+                    <h2 className="text-2xl font-semibold tracking-tight text-ink-900">
+                      Top stays in {group.city}
+                    </h2>
+                    <ChevronRight className="h-5 w-5 text-ink-700 " />
+                  </div>
 
-        <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-          {defaultGridCards.map((item, index) => {
-            return (
-              <Link key={item.id} className="block space-y-2" href={"#"}>
-                <div className="overflow-hidden rounded-2xl ">
-                  <SafeImage
-                    src={item.image}
-                    alt={item.title}
-                    width={420}
-                    height={280}
-                    className="h-48 w-full object-cover"
-                    priority={index < 4}
-                  />
-                </div>
-                <div className="space-y-0.5 space-x-0.5">
-                  <p className="inline-flex rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700">
-                    {item.city}
-                  </p>
-                  <p className="line-clamp-1 text-sm font-medium text-ink-900">
-                    {item.title}
-                  </p>
-                  <p className="line-clamp-1 text-xs text-ink-500 ">
-                    ${item.price} for 1 nights
-                    <span className="ml-1 inline-flex items-center gap-0.5">
-                      <Star className="h-3 w-3 fill-current text-ink-700" />
-                      {item.rating}
-                    </span>
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+                  <div
+                    key={group.city}
+                    className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 md:gap-4 lg:grid-cols-4"
+                  >
+                    {group.item.map((item, index) => {
+                      return (
+                        <Link
+                          key={item.id}
+                          className="block space-y-2"
+                          href={buildingListingHref(item.id)}
+                        >
+                          <div className="overflow-hidden rounded-2xl ">
+                            <SafeImage
+                              src={item.image}
+                              alt={item.title}
+                              width={420}
+                              height={280}
+                              className="h-48 w-full object-cover"
+                              priority={index < 4}
+                            />
+                          </div>
+                          <div className="space-y-0.5 space-x-0.5">
+                            <p className="inline-flex rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700">
+                              {item.city}
+                            </p>
+                            <p className="line-clamp-1 text-sm font-medium text-ink-900">
+                              {item.title}
+                            </p>
+                            <p className="line-clamp-1 text-xs text-ink-500 ">
+                              ${item.price} for 1 nights
+                              <span className="ml-1 inline-flex items-center gap-0.5">
+                                <Star className="h-3 w-3 fill-current text-ink-700" />
+                                {item.rating}
+                              </span>
+                            </p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </>
+              ))}
+            </section>
+          ) : (
+            <section className="mt-10 md:mt-8 ">
+              <div className="mb-4 flex items-center gap-2">
+                <h2 className="text-2xl font-semibold tracking-tight text-ink-900">
+                  Top picks across the United States
+                </h2>
+                <ChevronRight className="h-5 w-5 text-ink-700 " />
+              </div>
+
+              <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+                {defaultGridCards.map((item, index) => {
+                  return (
+                    <Link
+                      key={item.id}
+                      className="block space-y-2"
+                      href={buildingListingHref(item.id)}
+                    >
+                      <div className="overflow-hidden rounded-2xl ">
+                        <SafeImage
+                          src={item.image}
+                          alt={item.title}
+                          width={420}
+                          height={280}
+                          className="h-48 w-full object-cover"
+                          priority={index < 4}
+                        />
+                      </div>
+                      <div className="space-y-0.5 space-x-0.5">
+                        <p className="inline-flex rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700">
+                          {item.city}
+                        </p>
+                        <p className="line-clamp-1 text-sm font-medium text-ink-900">
+                          {item.title}
+                        </p>
+                        <p className="line-clamp-1 text-xs text-ink-500 ">
+                          ${item.price} for 1 nights
+                          <span className="ml-1 inline-flex items-center gap-0.5">
+                            <Star className="h-3 w-3 fill-current text-ink-700" />
+                            {item.rating}
+                          </span>
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+        </>
+      )}
 
       <footer className="mt-16 rounded-3xl border border-ink-200 bg-surface p-6 shadow-sm md:mt-14 md:p-7 ">
         <div className="grid gap-8 md:grid-cols-4">
@@ -14116,4 +16675,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     </main>
   );
 }
-````
+</file>
+
+</files>
