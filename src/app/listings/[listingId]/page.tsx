@@ -58,7 +58,6 @@ export default async function ListingPage({
   const hostRating = demoListing?.rating ?? 4.9;
 
   if (!demoListing && !dbListing) notFound();
-  if (demoListing && !dbListing) notFound();
 
   const listing = dbListing
     ? {
@@ -104,7 +103,7 @@ export default async function ListingPage({
         orderBy: {
           createdAt: "desc",
         },
-        take: 6,
+        take: 60,
       }),
       user
         ? prisma.reservation.findFirst({
